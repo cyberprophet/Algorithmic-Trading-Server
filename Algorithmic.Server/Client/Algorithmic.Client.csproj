@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<AssemblyName>Client</AssemblyName>
+		<RootNamespace>ShareInvest.Client</RootNamespace>
+		<ApplicationIcon>bird_away.ico</ApplicationIcon>
+		<Authors>cyberprophet</Authors>
+		<Company>ShareInvest Corp.</Company>
+		<Product>Algorithmic Trading</Product>
+		<Copyright>Copyright ⓒ 2022, ShareInvest Corp.</Copyright>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="bird_away.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.10" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.10" PrivateAssets="all" />
+	</ItemGroup>
+
+</Project>

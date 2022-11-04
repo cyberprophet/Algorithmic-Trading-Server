@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>c58f90c8-c6b2-45c3-a940-a34e1d6de737</UserSecretsId>
+		<AssemblyName>Server</AssemblyName>
+		<RootNamespace>ShareInvest.Server</RootNamespace>
+		<ApplicationIcon>server_home.ico</ApplicationIcon>
+		<Authors>cyberprophet</Authors>
+		<Company>ShareInvest Corp.</Company>
+		<Product>Algorithmic Trading</Product>
+		<Copyright>Copyright ⓒ 2022, ShareInvest Corp.</Copyright>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="server_home.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.10" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Controllers\" />
+		<ProjectReference Include="..\Client\Algorithmic.Client.csproj" />
+	</ItemGroup>
+
+</Project>
