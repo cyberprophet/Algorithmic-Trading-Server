@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithmic.Server", "Algorithmic.Server\Server\Algorithmic.Server.csproj", "{9D9AC891-52F6-446C-8AC1-0DE2F955B77B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Server", "Server\Algorithmic.Server.csproj", "{9D9AC891-52F6-446C-8AC1-0DE2F955B77B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Algorithmic.Client", "Algorithmic.Server\Client\Algorithmic.Client.csproj", "{61F4A0B2-413F-4C4F-AB56-58EF6C30C1B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Client", "Client\Algorithmic.Client.csproj", "{61F4A0B2-413F-4C4F-AB56-58EF6C30C1B2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Windows", "..\Windows.October.2022\Algorithmic.Windows\Algorithmic.Windows.csproj", "{3ACBCB07-7B6F-4675-A3ED-495931805D25}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Library", "..\Library.October.2022\Algorithmic.Library\Algorithmic.Library.csproj", "{63DE8AD6-09E8-4E42-B531-79FEA7DE57E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{61F4A0B2-413F-4C4F-AB56-58EF6C30C1B2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61F4A0B2-413F-4C4F-AB56-58EF6C30C1B2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61F4A0B2-413F-4C4F-AB56-58EF6C30C1B2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ACBCB07-7B6F-4675-A3ED-495931805D25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ACBCB07-7B6F-4675-A3ED-495931805D25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ACBCB07-7B6F-4675-A3ED-495931805D25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ACBCB07-7B6F-4675-A3ED-495931805D25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63DE8AD6-09E8-4E42-B531-79FEA7DE57E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63DE8AD6-09E8-4E42-B531-79FEA7DE57E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63DE8AD6-09E8-4E42-B531-79FEA7DE57E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63DE8AD6-09E8-4E42-B531-79FEA7DE57E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
