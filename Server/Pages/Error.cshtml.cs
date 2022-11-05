@@ -3,31 +3,34 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using System.Diagnostics;
 
-namespace ShareInvest.Server.Pages
+namespace ShareInvest.Server.Pages;
+
+[IgnoreAntiforgeryToken,
+ ResponseCache(Duration = 0,
+               Location = ResponseCacheLocation.None,
+               NoStore = true)]
+public class ErrorModel : PageModel
 {
-    [IgnoreAntiforgeryToken,
-     ResponseCache(Duration = 0,
-                   Location = ResponseCacheLocation.None,
-                   NoStore = true)]
-    public class ErrorModel : PageModel
+    public string? RequestId
     {
-        public string? RequestId
-        {
-            get; set;
-        }
-        public bool ShowRequestId
-        {
-            get
-            {
-                logger.LogInformation(nameof(ShowRequestId), RequestId);
-
-                return string.IsNullOrEmpty(RequestId) is false;
-            }
-        }
-        public ErrorModel(ILogger<ErrorModel> logger) => this.logger = logger;
-
-        public void OnGet() => RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-
-        readonly ILogger<ErrorModel> logger;
+        get; set;
     }
+    public bool ShowRequestId
+    {
+        get
+        {
+            logger.LogInformation(nameof(ShowRequestId), RequestId);
+
+            return string.IsNullOrEmpty(RequestId) is false;
+        }
+    }
+    public ErrorModel(ILogger<ErrorModel> logger)
+    {
+        this.logger = logger;
+    }
+    public void OnGet()
+    {
+        RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
+    }
+    readonly ILogger<ErrorModel> logger;
 }

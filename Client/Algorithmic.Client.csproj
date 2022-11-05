@@ -22,4 +22,8 @@
 		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.10" PrivateAssets="all" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Library.October.2022\Algorithmic.Library\Algorithmic.Library.csproj" />
+	</ItemGroup>
+
 </Project>
