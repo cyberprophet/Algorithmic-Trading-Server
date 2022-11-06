@@ -4,7 +4,7 @@ namespace ShareInvest.Server.Services;
 
 public class PropertyService
 {
-    public void SetValueOfColumn<T>(T tuple, T param) where T : class
+    public void SetValuesOfColumn<T>(T tuple, T param) where T : class
     {
         foreach (var property in tuple.GetType()
                                       .GetProperties(BindingFlags.Instance | BindingFlags.Public))

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 using ShareInvest.Models.OpenAPI;
+using ShareInvest.Models.OpenAPI.Response;
 
 namespace ShareInvest.Server.Data;
 
@@ -15,8 +16,30 @@ public class CoreContext : DbContext
     {
         get; set;
     }
+    public DbSet<KiwoomMessage>? KiwoomMessages
+    {
+        get; set;
+    }
+    public DbSet<OPTKWFID>? OPTKWFID
+    {
+        get; set;
+    }
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<OPTKWFID>(o =>
+        {
+            o.HasKey(o => o.Code);
+            o.ToTable(nameof(OPTKWFID));
+        });
+        builder.Entity<KiwoomMessage>(o =>
+        {
+            o.HasKey(o => new
+            {
+                o.Key,
+                o.Lookup
+            });
+            o.ToTable(nameof(KiwoomMessage));
+        });
         builder.Entity<KiwoomUser>(o =>
         {
             o.HasKey(o => o.Key);
@@ -27,11 +50,11 @@ public class CoreContext : DbContext
     }
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
-        builder.EnableDetailedErrors()
-               .ConfigureWarnings(o =>
+        builder.ConfigureWarnings(o =>
                {
                    o.Log((RelationalEventId.ConnectionOpened, LogLevel.Information),
                          (RelationalEventId.ConnectionClosed, LogLevel.Information));
-               });
+               })
+               .EnableDetailedErrors();
     }
 }

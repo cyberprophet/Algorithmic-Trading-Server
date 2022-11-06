@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShareInvest.Server.Data;
 
@@ -10,9 +11,10 @@ using ShareInvest.Server.Data;
 namespace ShareInvest.Server.Data.Migrations
 {
     [DbContext(typeof(CoreContext))]
-    partial class CoreContextModelSnapshot : ModelSnapshot
+    [Migration("20221106125101_CreateOPTKWFID")]
+    partial class CreateOPTKWFID
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,35 +22,6 @@ namespace ShareInvest.Server.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("ShareInvest.Models.OpenAPI.KiwoomMessage", b =>
-                {
-                    b.Property<string>("Key")
-                        .HasMaxLength(37)
-                        .HasColumnType("nvarchar(37)")
-                        .HasColumnOrder(2);
-
-                    b.Property<long>("Lookup")
-                        .HasColumnType("bigint")
-                        .HasColumnOrder(1);
-
-                    b.Property<string>("Code")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Screen")
-                        .IsRequired()
-                        .HasMaxLength(4)
-                        .HasColumnType("nvarchar(4)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Key", "Lookup");
-
-                    b.ToTable("KiwoomMessage", (string)null);
-                });
 
             modelBuilder.Entity("ShareInvest.Models.OpenAPI.KiwoomUser", b =>
                 {

@@ -21,7 +21,7 @@ public class KiwoomUserController : ControllerBase
 
             if (tuple is not null)
 
-                service.SetValueOfColumn(tuple, user);
+                service.SetValuesOfColumn(tuple, user);
 
             else
                 context.KiwoomUsers.Add(user);

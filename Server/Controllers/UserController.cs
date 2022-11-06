@@ -9,14 +9,5 @@ namespace ShareInvest.Server.Controllers;
  ProducesResponseType(StatusCodes.Status204NoContent)]
 public class UserController : ControllerBase
 {
-    [HttpPost]
-    public async Task<IActionResult> PostAsync([FromBody] Models.User user)
-    {
-        return NoContent();
-    }
-    [HttpGet]
-    public async Task<IActionResult> GetAsync()
-    {
-        return NoContent();
-    }
+
 }
