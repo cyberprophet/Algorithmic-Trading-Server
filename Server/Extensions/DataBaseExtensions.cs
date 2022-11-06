@@ -7,7 +7,7 @@ namespace ShareInvest.Server.Extensions;
 
 public static class DataBaseExtensions
 {
-    public static WebApplicationBuilder ConfigureDataBase(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder ConfigureDataBases(this WebApplicationBuilder builder)
     {
         builder.Services
           .AddDbContext<CoreContext>(o =>

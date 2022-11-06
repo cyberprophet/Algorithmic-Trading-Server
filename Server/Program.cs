@@ -5,7 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 Status.SetDebug();
 
-builder.ConfigureDataBase()
+builder.ConfigureServices()
+       .ConfigureDataBases()
        .ConfigureControllers().Services
        .AddRazorPages(o =>
        {
