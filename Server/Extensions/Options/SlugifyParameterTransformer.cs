@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace ShareInvest.Server;
+namespace ShareInvest.Server.Extensions.Options;
 
 public class SlugifyParameterTransformer : IOutboundParameterTransformer
 {

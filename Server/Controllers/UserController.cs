@@ -10,7 +10,7 @@ namespace ShareInvest.Server.Controllers;
 public class UserController : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> PostAsync([FromBody] Models.OpenAPI.User user)
+    public async Task<IActionResult> PostAsync([FromBody] Models.User user)
     {
         return NoContent();
     }

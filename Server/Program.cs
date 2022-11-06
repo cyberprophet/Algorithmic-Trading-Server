@@ -1,18 +1,15 @@
 using ShareInvest;
 using ShareInvest.Server.Extensions;
 
-using System.Diagnostics;
-
 var builder = WebApplication.CreateBuilder(args);
 
 Status.SetDebug();
 
-builder.ConfigureControllers().Services
+builder.ConfigureDataBase()
+       .ConfigureControllers().Services
        .AddRazorPages(o =>
        {
-#if DEBUG
-           Debug.WriteLine(o.RootDirectory);
-#endif
+
        });
 if (builder.Build() is WebApplication app)
 {
@@ -27,9 +24,7 @@ if (builder.Build() is WebApplication app)
     app.UseHttpsRedirection()
        .UseBlazorFrameworkFiles()
        .UseStaticFiles()
-       .UseRouting()
-       .UseAuthentication()
-       .UseAuthorization();
+       .UseRouting();
 
     app.MapRazorPages();
     app.MapControllers();

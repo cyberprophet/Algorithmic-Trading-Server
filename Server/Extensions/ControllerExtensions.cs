@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.ApplicationModels;
 
+using ShareInvest.Server.Extensions.Options;
+
 namespace ShareInvest.Server.Extensions;
 
 public static class ControllerExtensions
@@ -11,7 +13,7 @@ public static class ControllerExtensions
         builder.Services
             .AddControllersWithViews(o =>
             {
-                o.Conventions.Add(new RouteTokenTransformerConvention(paramTransformer));                
+                o.Conventions.Add(new RouteTokenTransformerConvention(paramTransformer));
             })
             .AddJsonOptions(o =>
             {
