@@ -6,10 +6,7 @@ using ShareInvest.Server.Services;
 
 namespace ShareInvest.Server.Controllers.OpenAPI;
 
-[ApiController,
- Produces("application/json"),
- Route("core/[controller]")]
-public class KiwoomUserController : ControllerBase
+public class KiwoomUserController : KiwoomController
 {
     [HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] KiwoomUser user)
@@ -17,14 +14,22 @@ public class KiwoomUserController : ControllerBase
         if (context.KiwoomUsers is not null &&
             string.IsNullOrEmpty(user.Key) is false)
         {
-            var tuple = await context.KiwoomUsers.FindAsync(user.Key);
+            var length = 1;
 
-            if (tuple is not null)
+            do
+            {
+                user.AccNo = user.Accounts?[length - 1];
 
-                service.SetValuesOfColumn(tuple, user);
+                var tuple = await context.KiwoomUsers.FindAsync(user.Key, user.AccNo);
 
-            else
-                context.KiwoomUsers.Add(user);
+                if (tuple is not null)
+
+                    service.SetValuesOfColumn(tuple, user);
+
+                else
+                    context.KiwoomUsers.Add(user);
+            }
+            while (length++ < user.Accounts?.Length);
 
             return Ok(context.SaveChanges());
         }
