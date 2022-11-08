@@ -24,8 +24,35 @@ public class CoreContext : DbContext
     {
         get; set;
     }
+    public DbSet<Balance>? Balances
+    {
+        get; set;
+    }
+    public DbSet<Account>? Accounts
+    {
+        get; set;
+    }
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<Account>(o =>
+        {
+            o.HasKey(o => new
+            {
+                o.AccNo,
+                o.Date
+            });
+            o.ToTable(nameof(Account));
+        });
+        builder.Entity<Balance>(o =>
+        {
+            o.HasKey(o => new
+            {
+                o.AccNo,
+                o.Date,
+                o.Code
+            });
+            o.ToTable(nameof(Balance));
+        });
         builder.Entity<OPTKWFID>(o =>
         {
             o.HasKey(o => o.Code);
@@ -42,8 +69,11 @@ public class CoreContext : DbContext
         });
         builder.Entity<KiwoomUser>(o =>
         {
-            o.HasKey(o => o.Key);
-            o.HasIndex(o => o.Id).IsUnique();
+            o.HasKey(o => new
+            {
+                o.Key,
+                o.AccNo
+            });
             o.ToTable(nameof(KiwoomUser));
         });
         base.OnModelCreating(builder);

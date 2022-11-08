@@ -6,10 +6,7 @@ using ShareInvest.Server.Services;
 
 namespace ShareInvest.Server.Controllers.OpenAPI;
 
-[ApiController,
- Produces("application/json"),
- Route("core/[controller]")]
-public class OPTKWFIDController : ControllerBase
+public class OPTKWFIDController : KiwoomController
 {
     [HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] OPTKWFID param)

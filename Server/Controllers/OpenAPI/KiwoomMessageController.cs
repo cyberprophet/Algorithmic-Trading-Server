@@ -6,10 +6,7 @@ using ShareInvest.Server.Services;
 
 namespace ShareInvest.Server.Controllers.OpenAPI;
 
-[ApiController,
- Produces("application/json"),
- Route("core/[controller]")]
-public class KiwoomMessageController : ControllerBase
+public class KiwoomMessageController : KiwoomController
 {
     [HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] KiwoomMessage message)
