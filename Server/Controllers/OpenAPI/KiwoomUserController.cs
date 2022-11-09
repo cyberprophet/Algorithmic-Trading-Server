@@ -8,7 +8,8 @@ namespace ShareInvest.Server.Controllers.OpenAPI;
 
 public class KiwoomUserController : KiwoomController
 {
-    [HttpPost]
+    [ApiExplorerSettings(GroupName = "user"),
+     HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] KiwoomUser user)
     {
         if (context.KiwoomUsers is not null &&

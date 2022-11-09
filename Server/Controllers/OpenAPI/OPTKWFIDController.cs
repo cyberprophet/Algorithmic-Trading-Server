@@ -8,7 +8,8 @@ namespace ShareInvest.Server.Controllers.OpenAPI;
 
 public class OPTKWFIDController : KiwoomController
 {
-    [HttpPost]
+    [ApiExplorerSettings(GroupName = "stock"),
+     HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] OPTKWFID param)
     {
         if (context.OPTKWFID is not null &&
