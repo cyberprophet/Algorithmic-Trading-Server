@@ -108,10 +108,10 @@ public class CoreContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
         builder.ConfigureWarnings(o =>
-        {
-            o.Log((RelationalEventId.ConnectionOpened, LogLevel.Information),
-                  (RelationalEventId.ConnectionClosed, LogLevel.Information));
-        })
-            .EnableDetailedErrors();
+               {
+                   o.Log((RelationalEventId.ConnectionOpened, LogLevel.Information),
+                         (RelationalEventId.ConnectionClosed, LogLevel.Information));
+               })
+               .EnableDetailedErrors();
     }
 }

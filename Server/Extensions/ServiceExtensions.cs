@@ -6,7 +6,8 @@ public static class ServiceExtensions
 {
     public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddScoped<PropertyService>();
+        builder.Services
+               .AddScoped<PropertyService>();
 
         return builder;
     }
