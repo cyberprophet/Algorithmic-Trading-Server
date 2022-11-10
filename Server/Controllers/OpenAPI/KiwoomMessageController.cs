@@ -8,7 +8,8 @@ namespace ShareInvest.Server.Controllers.OpenAPI;
 
 public class KiwoomMessageController : KiwoomController
 {
-    [HttpPost]
+    [ApiExplorerSettings(GroupName = "message"),
+     HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] KiwoomMessage message)
     {
         if (context.KiwoomMessages is not null)

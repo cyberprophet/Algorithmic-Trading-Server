@@ -24,26 +24,34 @@ public class CoreContext : DbContext
     {
         get; set;
     }
-    public DbSet<Balance>? Balances
+    public DbSet<BalanceOPW00004>? Balances
     {
         get; set;
     }
-    public DbSet<Account>? Accounts
+    public DbSet<AccountOPW00004>? Accounts
+    {
+        get; set;
+    }
+    public DbSet<BalanceOPW00005>? ClosedBalances
+    {
+        get; set;
+    }
+    public DbSet<AccountOPW00005>? ClosedAccounts
     {
         get; set;
     }
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<Account>(o =>
+        builder.Entity<AccountOPW00005>(o =>
         {
             o.HasKey(o => new
             {
                 o.AccNo,
                 o.Date
             });
-            o.ToTable(nameof(Account));
+            o.ToTable(nameof(AccountOPW00005));
         });
-        builder.Entity<Balance>(o =>
+        builder.Entity<BalanceOPW00005>(o =>
         {
             o.HasKey(o => new
             {
@@ -51,7 +59,26 @@ public class CoreContext : DbContext
                 o.Date,
                 o.Code
             });
-            o.ToTable(nameof(Balance));
+            o.ToTable(nameof(BalanceOPW00005));
+        });
+        builder.Entity<AccountOPW00004>(o =>
+        {
+            o.HasKey(o => new
+            {
+                o.AccNo,
+                o.Date
+            });
+            o.ToTable(nameof(AccountOPW00004));
+        });
+        builder.Entity<BalanceOPW00004>(o =>
+        {
+            o.HasKey(o => new
+            {
+                o.AccNo,
+                o.Date,
+                o.Code
+            });
+            o.ToTable(nameof(BalanceOPW00004));
         });
         builder.Entity<OPTKWFID>(o =>
         {

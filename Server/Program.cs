@@ -15,9 +15,23 @@ builder.ConfigureServices()
 if (builder.Build() is WebApplication app)
 {
     if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger(o =>
+           {
+               o.SerializeAsV2 = true;
+           })
+           .UseSwaggerUI(o =>
+           {
+               o.SwaggerEndpoint("/swagger/stock/swagger.json", "Stock");
+               o.SwaggerEndpoint("/swagger/message/swagger.json", "Message");
+               o.SwaggerEndpoint("/swagger/user/swagger.json", "User");
+               o.SwaggerEndpoint("/swagger/account/swagger.json", "Account");
+               o.SwaggerEndpoint("/swagger/balance/swagger.json", "Balance");
 
-        app.UseWebAssemblyDebugging();
-
+               o.RoutePrefix = "api";
+           })
+           .UseWebAssemblyDebugging();
+    }
     else
         app.UseExceptionHandler("/Error")
            .UseHsts();
