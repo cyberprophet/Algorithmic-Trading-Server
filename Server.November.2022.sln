@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Library", "..\L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.OpenAPI", "..\Windows.October.2022\Algorithmic.OpenAPI\Algorithmic.OpenAPI.csproj", "{F17A3816-2AC6-46CB-887C-A4701F6C344D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Mobile", "..\Mobile.November.2022\Algorithmic.Mobile\Algorithmic.Mobile.csproj", "{8FEF78F1-AA51-4B15-8A50-6C88A480ED4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,12 @@ Global
 		{F17A3816-2AC6-46CB-887C-A4701F6C344D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F17A3816-2AC6-46CB-887C-A4701F6C344D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F17A3816-2AC6-46CB-887C-A4701F6C344D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FEF78F1-AA51-4B15-8A50-6C88A480ED4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8FEF78F1-AA51-4B15-8A50-6C88A480ED4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8FEF78F1-AA51-4B15-8A50-6C88A480ED4B}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{8FEF78F1-AA51-4B15-8A50-6C88A480ED4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8FEF78F1-AA51-4B15-8A50-6C88A480ED4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8FEF78F1-AA51-4B15-8A50-6C88A480ED4B}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
