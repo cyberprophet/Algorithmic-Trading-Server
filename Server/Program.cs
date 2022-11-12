@@ -1,18 +1,15 @@
 using ShareInvest;
 using ShareInvest.Server.Extensions;
 
-var builder = WebApplication.CreateBuilder(args);
-
 Status.SetDebug();
 
-builder.ConfigureServices()
-       .ConfigureDataBases()
-       .ConfigureControllers().Services
-       .AddRazorPages(o =>
-       {
-
-       });
-if (builder.Build() is WebApplication app)
+using (var app = WebApplication.CreateBuilder(args)
+                               .ConfigureHubs()
+                               .ConfigureServices()
+                               .ConfigureDataBases()
+                               .ConfigureControllers()
+                               .ConfigureViews()
+                               .Build())
 {
     if (app.Environment.IsDevelopment())
     {
@@ -44,6 +41,6 @@ if (builder.Build() is WebApplication app)
     app.MapRazorPages();
     app.MapControllers();
     app.MapFallbackToFile("index.html");
-
+    app.ConfigureHubs();
     app.Run();
 }
