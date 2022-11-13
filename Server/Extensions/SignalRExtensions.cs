@@ -16,7 +16,7 @@ public static class SignalRExtensions
     }
     public static WebApplication ConfigureHubs(this WebApplication app)
     {
-        app.MapHub<Kiwoom>(app.Configuration["Hubs:Kiwoom"], o =>
+        app.MapHub<KiwoomHub>(app.Configuration["Hubs:Kiwoom"], o =>
         {
             o.Transports = HttpTransportType.WebSockets |
                            HttpTransportType.LongPolling;

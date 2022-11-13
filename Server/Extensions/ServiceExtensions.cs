@@ -7,8 +7,8 @@ public static class ServiceExtensions
     public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
     {
         builder.Services.AddScoped<PropertyService>()
+                        .AddSingleton<StockService>()
                         .AddHostedService<HubService>();
-
         return builder;
     }
 }
