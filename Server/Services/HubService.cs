@@ -8,7 +8,7 @@ namespace ShareInvest.Server.Services;
 public class HubService : BackgroundService
 {
     public HubService(ILogger<HubService> logger,
-                      IHubContext<Kiwoom, IHubs> kiwoom)
+                      IHubContext<KiwoomHub, IHubs> kiwoom)
     {
         this.logger = logger;
         this.kiwoom = kiwoom;
@@ -21,6 +21,6 @@ public class HubService : BackgroundService
         }
         logger.LogInformation(nameof(HubService));
     }
-    readonly IHubContext<Kiwoom, IHubs> kiwoom;
+    readonly IHubContext<KiwoomHub, IHubs> kiwoom;
     readonly ILogger<HubService> logger;
 }

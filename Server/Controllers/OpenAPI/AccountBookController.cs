@@ -15,8 +15,10 @@ public class AccountBookController : KiwoomController
     {
         if (context.ClosedBalances is not null)
         {
-            bal.Lookup = DateTime.Now.Ticks;
-
+            if (bal.Lookup == 0)
+            {
+                bal.Lookup = DateTime.Now.Ticks;
+            }
             var tuple = await context.ClosedBalances.FindAsync(bal.AccNo,
                                                                bal.Date,
                                                                bal.Code);
@@ -38,8 +40,10 @@ public class AccountBookController : KiwoomController
     {
         if (context.Balances is not null)
         {
-            bal.Lookup = DateTime.Now.Ticks;
-
+            if (bal.Lookup == 0)
+            {
+                bal.Lookup = DateTime.Now.Ticks;
+            }
             var tuple = await context.Balances.FindAsync(bal.AccNo,
                                                          bal.Date,
                                                          bal.Code);
@@ -61,8 +65,10 @@ public class AccountBookController : KiwoomController
     {
         if (context.ClosedAccounts is not null)
         {
-            acc.Lookup = DateTime.Now.Ticks;
-
+            if (acc.Lookup == 0)
+            {
+                acc.Lookup = DateTime.Now.Ticks;
+            }
             var tuple = await context.ClosedAccounts.FindAsync(acc.AccNo, acc.Date);
 
             if (tuple is null)
@@ -83,8 +89,10 @@ public class AccountBookController : KiwoomController
     {
         if (context.Accounts is not null)
         {
-            acc.Lookup = DateTime.Now.Ticks;
-
+            if (acc.Lookup == 0)
+            {
+                acc.Lookup = DateTime.Now.Ticks;
+            }
             var tuple = await context.Accounts.FindAsync(acc.AccNo, acc.Date);
 
             if (tuple is null)
