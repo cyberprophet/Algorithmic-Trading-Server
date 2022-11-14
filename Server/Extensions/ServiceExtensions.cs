@@ -1,4 +1,6 @@
-﻿using ShareInvest.Server.Services;
+﻿using Microsoft.AspNetCore.Server.Kestrel.Core;
+
+using ShareInvest.Server.Services;
 
 namespace ShareInvest.Server.Extensions;
 
@@ -8,7 +10,12 @@ public static class ServiceExtensions
     {
         builder.Services.AddScoped<PropertyService>()
                         .AddSingleton<StockService>()
-                        .AddHostedService<HubService>();
+                        .AddHostedService<HubService>()
+                        .Configure<KestrelServerOptions>(o =>
+                        {
+                            o.ListenAnyIP(0x2527);
+                            o.Limits.MaxRequestBodySize = null;
+                        });
         return builder;
     }
 }

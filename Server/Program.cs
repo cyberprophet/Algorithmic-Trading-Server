@@ -33,8 +33,11 @@ using (var app = WebApplication.CreateBuilder(args)
         app.UseExceptionHandler("/Error")
            .UseHsts();
 
-    app.UseHttpsRedirection()
-       .UseBlazorFrameworkFiles()
+#if DEBUG
+    app.UseHttpsRedirection();
+#endif
+
+    app.UseBlazorFrameworkFiles()
        .UseStaticFiles()
        .UseRouting();
 
