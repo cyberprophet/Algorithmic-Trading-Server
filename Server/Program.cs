@@ -30,9 +30,10 @@ using (var app = WebApplication.CreateBuilder(args)
            .UseWebAssemblyDebugging();
     }
     else
+    {
         app.UseExceptionHandler("/Error")
            .UseHsts();
-
+    }
 #if DEBUG
     app.UseHttpsRedirection();
 #endif
