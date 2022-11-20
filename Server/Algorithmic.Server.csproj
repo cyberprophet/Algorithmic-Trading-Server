@@ -10,8 +10,9 @@
 		<ApplicationIcon>server_home.ico</ApplicationIcon>
 		<Authors>cyberprophet</Authors>
 		<Company>ShareInvest Corp.</Company>
-		<Product>Algorithmic Trading</Product>
+		<Product>Algorithmic-Trading</Product>
 		<Copyright>Copyright ⓒ 2022, ShareInvest Corp.</Copyright>
+		<Version>0.0.0.0</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
