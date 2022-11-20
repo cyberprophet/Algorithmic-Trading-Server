@@ -24,7 +24,8 @@ public class OPTKWFIDController : KiwoomController
                                             where today.Equals(o.Date)
                                             select o;
 
-                res = asc ? service.OrderBy(order, res) : service.OrderByDescending(order, res);
+                res = asc ? service.OrderBy(order, res) :
+                            service.OrderByDescending(order, res);
 
                 return Ok(res.Select(o => new Models.Stock
                 {
