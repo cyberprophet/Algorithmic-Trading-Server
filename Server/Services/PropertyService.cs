@@ -30,4 +30,32 @@ public class PropertyService
             property.SetValue(tuple, obj);
         }
     }
+    public IEnumerable<T> OrderBy<T>(string? name,
+                                     IEnumerable<T> param) where T : class
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            return param;
+        }
+        return param.ToArray()
+                    .OrderBy(o => Convert.ToDouble(o.GetType()
+                                                    .GetProperty(name,
+                                                                 BindingFlags.Public |
+                                                                 BindingFlags.Instance)?
+                                                    .GetValue(o)));
+    }
+    public IEnumerable<T> OrderByDescending<T>(string? name,
+                                               IEnumerable<T> param) where T : class
+    {
+        if (string.IsNullOrEmpty(name))
+        {
+            return param;
+        }
+        return param.ToArray()
+                    .OrderByDescending(o => Convert.ToDouble(o.GetType()
+                                                              .GetProperty(name,
+                                                                           BindingFlags.Public |
+                                                                           BindingFlags.Instance)?
+                                                              .GetValue(o)));
+    }
 }
