@@ -12,7 +12,8 @@ public class SlugifyParameterTransformer : IOutboundParameterTransformer
                                  "([a-z])([A-Z])",
                                  "$1-$2",
                                  RegexOptions.CultureInvariant,
-                                 TimeSpan.FromMilliseconds(0x64)).ToLowerInvariant();
+                                 TimeSpan.FromMilliseconds(0x64))
+                        .ToLowerInvariant();
         return null;
     }
 }
