@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using ShareInvest.Identifies;
 using ShareInvest.Models.OpenAPI.Response;
 using ShareInvest.Server.Data;
 using ShareInvest.Server.Services;
@@ -24,8 +25,8 @@ public class OPTKWFIDController : KiwoomController
                                             where today.Equals(o.Date)
                                             select o;
 
-                res = asc ? service.OrderBy(order, res) :
-                            service.OrderByDescending(order, res);
+                res = asc ? service.OrderBy(Parameter.TransformInbound(order), res) :
+                            service.OrderByDescending(Parameter.TransformInbound(order), res);
 
                 return Ok(res.Select(o => new Models.Stock
                 {
