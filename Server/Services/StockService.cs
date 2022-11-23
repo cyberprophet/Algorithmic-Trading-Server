@@ -2,7 +2,7 @@
 
 public class StockService
 {
-    public Dictionary<string, string> Stocks
+    public Dictionary<string, string> StocksConclusion
     {
         get;
     }
@@ -10,9 +10,14 @@ public class StockService
     {
         get;
     }
+    public string[] MarketOperation
+    {
+        get;
+    }
     public StockService()
     {
-        Stocks = new Dictionary<string, string>();
+        StocksConclusion = new Dictionary<string, string>();
         RemainingQueue = new Dictionary<string, int>();
+        MarketOperation = new string[3];
     }
 }

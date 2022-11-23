@@ -52,7 +52,7 @@ public class KiwoomHub : Hub<IHubs>
     [HubMethodName("주식체결")]
     public void RealTypeSignStatus(string key, string data)
     {
-
+        service.StocksConclusion[key] = data;
     }
     [HubMethodName("주식우선호가")]
     public void RealTypeFirstOfPrice(string key, string data)
@@ -92,12 +92,14 @@ public class KiwoomHub : Hub<IHubs>
     [HubMethodName("주식예상체결")]
     public void RealTypeEstimatedPrice(string key, string data)
     {
-
+        service.StocksConclusion[key] = data;
     }
     [HubMethodName("주식종목정보")]
     public void RealTypeStockInformation(string key, string data)
     {
-
+        logger.LogInformation("Stock Information Key is { }.\nData is { }.",
+                              key,
+                              data);
     }
     [HubMethodName("선물옵션우선호가")]
     public void RealTypePriorityPrice(string key, string data)
@@ -147,7 +149,15 @@ public class KiwoomHub : Hub<IHubs>
     [HubMethodName("장시작시간")]
     public void RealTypeOperation(string key, string data)
     {
+        var operation = data.Split('\t');
 
+        for (int i = 0; i < service.MarketOperation.Length; i++)
+        {
+            service.MarketOperation[i] = operation[i];
+        }
+        logger.LogInformation("Market Operation Key is { }.\nData is { }.",
+                              key,
+                              data);
     }
     [HubMethodName("VI발동/해제")]
     public void RealTypeVolatilityInterruption(string key, string data)
