@@ -34,7 +34,7 @@ public class OPTKWFIDController : KiwoomController
                     var operation = MarketOperation.Get(stock.MarketOperation[0]);
 
                     if (operation >= EnumMarketOperation.장시작 &&
-                        operation < EnumMarketOperation.장마감 &&
+                        operation < EnumMarketOperation.장종료_시간외종료 &&
                         o.Code?.Length == 6 &&
                         stock.StocksConclusion.TryGetValue(o.Code, out string? data))
                     {
