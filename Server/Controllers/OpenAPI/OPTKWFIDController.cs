@@ -40,17 +40,32 @@ public class OPTKWFIDController : KiwoomController
                     {
                         var stock = data.Split('\t');
 
-                        return new Models.Stock
+                        return stock.Length switch
                         {
-                            Code = o.Code,
-                            Name = o.Name,
-                            Current = stock[1],
-                            Rate = stock[3],
-                            CompareToPreviousDay = stock[2],
-                            CompareToPreviousSign = stock[0xC],
-                            Volume = stock[7],
-                            TransactionAmount = stock[8],
-                            State = o.State
+                            7 => new Models.Stock
+                            {
+                                Code = o.Code,
+                                Name = o.Name,
+                                Current = stock[1],
+                                Rate = stock[3],
+                                CompareToPreviousDay = stock[2],
+                                CompareToPreviousSign = stock[6],
+                                Volume = stock[5],
+                                TransactionAmount = o.TransactionAmount,
+                                State = o.State
+                            },
+                            _ => new Models.Stock
+                            {
+                                Code = o.Code,
+                                Name = o.Name,
+                                Current = stock[1],
+                                Rate = stock[3],
+                                CompareToPreviousDay = stock[2],
+                                CompareToPreviousSign = stock[0xC],
+                                Volume = stock[7],
+                                TransactionAmount = stock[8],
+                                State = o.State
+                            }
                         };
                     }
                     return new Models.Stock
