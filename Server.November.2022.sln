@@ -9,6 +9,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Client", "Clien
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Library", "..\Algorithmic-Trading-Library\Algorithmic.Library\Algorithmic.Library.csproj", "{51FC8247-A267-4218-988B-4BBBB4CF3EA9}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Mobile", "..\Algorithmic-Trading-Mobile\Algorithmic.Mobile\Algorithmic.Mobile.csproj", "{CDDF9092-4365-467C-ABDE-AF4EFE3157AA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Windows", "..\Algorithmic-Trading-DeskTop\Algorithmic.Windows\Algorithmic.Windows.csproj", "{3472BCA4-09AF-414B-B3E8-187BBDE7C3A0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.OpenAPI", "..\Algorithmic-Trading-DeskTop\Algorithmic.OpenAPI\Algorithmic.OpenAPI.csproj", "{1F190CCE-384A-4829-9C8C-8D805655E880}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Launcher", "..\Algorithmic-Trading-Launcher\Algorithmic.Launcher\Algorithmic.Launcher.csproj", "{88FDAF99-BB4A-4185-BF0A-DF36C92FD3FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +35,24 @@ Global
 		{51FC8247-A267-4218-988B-4BBBB4CF3EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51FC8247-A267-4218-988B-4BBBB4CF3EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51FC8247-A267-4218-988B-4BBBB4CF3EA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDDF9092-4365-467C-ABDE-AF4EFE3157AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDDF9092-4365-467C-ABDE-AF4EFE3157AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDDF9092-4365-467C-ABDE-AF4EFE3157AA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CDDF9092-4365-467C-ABDE-AF4EFE3157AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDDF9092-4365-467C-ABDE-AF4EFE3157AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDDF9092-4365-467C-ABDE-AF4EFE3157AA}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3472BCA4-09AF-414B-B3E8-187BBDE7C3A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3472BCA4-09AF-414B-B3E8-187BBDE7C3A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3472BCA4-09AF-414B-B3E8-187BBDE7C3A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3472BCA4-09AF-414B-B3E8-187BBDE7C3A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F190CCE-384A-4829-9C8C-8D805655E880}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F190CCE-384A-4829-9C8C-8D805655E880}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F190CCE-384A-4829-9C8C-8D805655E880}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F190CCE-384A-4829-9C8C-8D805655E880}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88FDAF99-BB4A-4185-BF0A-DF36C92FD3FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88FDAF99-BB4A-4185-BF0A-DF36C92FD3FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88FDAF99-BB4A-4185-BF0A-DF36C92FD3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88FDAF99-BB4A-4185-BF0A-DF36C92FD3FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
