@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Windows", "..\A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.OpenAPI", "..\Algorithmic-Trading-DeskTop\Algorithmic.OpenAPI\Algorithmic.OpenAPI.csproj", "{1F190CCE-384A-4829-9C8C-8D805655E880}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Algorithmic.Launcher", "..\Algorithmic-Trading-Launcher\Algorithmic.Launcher\Algorithmic.Launcher.csproj", "{88FDAF99-BB4A-4185-BF0A-DF36C92FD3FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{1F190CCE-384A-4829-9C8C-8D805655E880}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F190CCE-384A-4829-9C8C-8D805655E880}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F190CCE-384A-4829-9C8C-8D805655E880}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88FDAF99-BB4A-4185-BF0A-DF36C92FD3FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88FDAF99-BB4A-4185-BF0A-DF36C92FD3FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88FDAF99-BB4A-4185-BF0A-DF36C92FD3FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88FDAF99-BB4A-4185-BF0A-DF36C92FD3FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
