@@ -44,6 +44,22 @@ public class KiwoomHub : Hub<IHubs>
 
         await base.OnDisconnectedAsync(exception);
     }
+    public async Task AddToGroupAsync(string id, string code)
+    {
+        logger.LogInformation("{ } has joined the group { }.",
+                              id,
+                              code);
+
+        await Groups.AddToGroupAsync(id, code);
+    }
+    public async Task RemoveFromGroupAsync(string id, string code)
+    {
+        logger.LogInformation("{ } has left the group { }.",
+                              id,
+                              code);
+
+        await Groups.RemoveFromGroupAsync(id, code);
+    }
     [HubMethodName("주식시세")]
     public void RealTypeMarketPrice(string key, string data)
     {
@@ -52,6 +68,9 @@ public class KiwoomHub : Hub<IHubs>
     [HubMethodName("주식체결")]
     public void RealTypeSignStatus(string key, string data)
     {
+        Clients.Group(key)
+               .TransmitConclusionInformation(key, data);
+
         service.StocksConclusion[key] = data;
     }
     [HubMethodName("주식우선호가")]
@@ -92,6 +111,9 @@ public class KiwoomHub : Hub<IHubs>
     [HubMethodName("주식예상체결")]
     public void RealTypeEstimatedPrice(string key, string data)
     {
+        Clients.Group(key)
+               .TransmitConclusionInformation(key, data);
+
         service.StocksConclusion[key] = data;
     }
     [HubMethodName("주식종목정보")]
