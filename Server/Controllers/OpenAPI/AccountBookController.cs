@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
+using ShareInvest.Mappers;
 using ShareInvest.Models.OpenAPI.Response;
 using ShareInvest.Server.Data;
-using ShareInvest.Server.Services;
 
 namespace ShareInvest.Server.Controllers.OpenAPI;
 
@@ -108,7 +108,7 @@ public class AccountBookController : KiwoomController
         return NoContent();
     }
     public AccountBookController(CoreContext context,
-                                 PropertyService service,
+                                 IPropertyService service,
                                  ILogger<AccountBookController> logger)
     {
         this.context = context;
@@ -116,6 +116,6 @@ public class AccountBookController : KiwoomController
         this.logger = logger;
     }
     readonly CoreContext context;
-    readonly PropertyService service;
+    readonly IPropertyService service;
     readonly ILogger<AccountBookController> logger;
 }

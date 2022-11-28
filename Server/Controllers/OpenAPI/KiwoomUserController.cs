@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
+using ShareInvest.Mappers;
 using ShareInvest.Models.OpenAPI;
 using ShareInvest.Server.Data;
-using ShareInvest.Server.Services;
 
 namespace ShareInvest.Server.Controllers.OpenAPI;
 
@@ -39,7 +39,7 @@ public class KiwoomUserController : KiwoomController
         return NoContent();
     }
     public KiwoomUserController(CoreContext context,
-                                PropertyService service,
+                                IPropertyService service,
                                 ILogger<KiwoomUserController> logger)
     {
         this.context = context;
@@ -47,6 +47,6 @@ public class KiwoomUserController : KiwoomController
         this.logger = logger;
     }
     readonly CoreContext context;
-    readonly PropertyService service;
+    readonly IPropertyService service;
     readonly ILogger<KiwoomUserController> logger;
 }
