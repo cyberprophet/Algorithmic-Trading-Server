@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
+using ShareInvest.Models;
 using ShareInvest.Models.OpenAPI;
 using ShareInvest.Models.OpenAPI.Response;
 
@@ -40,8 +41,22 @@ public class CoreContext : DbContext
     {
         get; set;
     }
+    public DbSet<FileVersionInfo>? FileVersions
+    {
+        get; set;
+    }
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<FileVersionInfo>(o =>
+        {
+            o.HasKey(o => new
+            {
+                o.App,
+                o.Path,
+                o.FileName
+            });
+            o.ToTable(nameof(FileVersionInfo));
+        });
         builder.Entity<AccountOPW00005>(o =>
         {
             o.HasKey(o => new
