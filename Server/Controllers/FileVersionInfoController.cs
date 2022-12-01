@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-using Newtonsoft.Json;
-
 using ShareInvest.Mappers;
 using ShareInvest.Models;
 using ShareInvest.Server.Data;
@@ -19,7 +17,8 @@ public class FileVersionInfoController : ControllerBase
      HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] FileVersionInfo fileVersionInfo)
     {
-        if (context.FileVersions != null)
+        if (context.FileVersions != null &&
+            string.IsNullOrEmpty(fileVersionInfo.App) is false)
         {
             var tuple = await context.FileVersions.FindAsync(fileVersionInfo.App,
                                                              fileVersionInfo.Path,
@@ -30,20 +29,54 @@ public class FileVersionInfoController : ControllerBase
                                            fileVersionInfo);
             }
             else
+            {
+                DirectoryInfo di = new(Path.Combine(env.WebRootPath,
+                                                    fileVersionInfo.App));
+
                 context.FileVersions.Add(fileVersionInfo);
 
+                if (di.Exists is false)
+                    di.Create();
+            }
             if (context.SaveChanges() > 0)
             {
-#if DEBUG
-                System.Diagnostics.Debug.WriteLine(JsonConvert.SerializeObject(new
+                string? path = null;
+
+                if (env.ApplicationName.Equals(fileVersionInfo.App,
+                                               StringComparison.OrdinalIgnoreCase))
                 {
-                    env.EnvironmentName,
-                    env.ApplicationName,
-                    env.ContentRootPath,
-                    env.WebRootPath
-                },
-                Formatting.Indented));
-#endif
+
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(fileVersionInfo.Path) is false &&
+                        string.IsNullOrEmpty(fileVersionInfo.FileName) is false)
+                    {
+                        if (nameof(FileVersionInfo.Publish).Equals(fileVersionInfo.Path,
+                                                                   StringComparison.OrdinalIgnoreCase))
+                        {
+                            path = Path.Combine(env.WebRootPath,
+                                                fileVersionInfo.App,
+                                                fileVersionInfo.FileName);
+                        }
+                        else
+                            path = Path.Combine(env.WebRootPath,
+                                                fileVersionInfo.App,
+                                                fileVersionInfo.Path[8..],
+                                                fileVersionInfo.FileName);
+
+                        if (fileVersionInfo.File != null)
+                            await System.IO.File.WriteAllBytesAsync(path,
+                                                                    fileVersionInfo.File);
+                    }
+                    logger.LogInformation("Environment Name: { }\nApplication Name: { }\nContent Root Path: { }\nWeb Root Path: { }",
+                                          env.EnvironmentName,
+                                          env.ApplicationName,
+                                          env.ContentRootPath,
+                                          env.WebRootPath);
+                }
+                return Ok(string.IsNullOrEmpty(path) is false &&
+                          new FileInfo(path).Exists);
             }
             logger.LogInformation("{ } { } file not saved.",
                                   fileVersionInfo.App,
