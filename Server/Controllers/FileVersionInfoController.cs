@@ -29,62 +29,53 @@ public class FileVersionInfoController : ControllerBase
                                            fileVersionInfo);
             }
             else
-            {
-                DirectoryInfo di = new(Path.Combine(env.WebRootPath,
-                                                    fileVersionInfo.App));
-
                 context.FileVersions.Add(fileVersionInfo);
 
-                if (di.Exists is false)
-                    di.Create();
-            }
             if (context.SaveChanges() > 0)
             {
-                string? path = null;
-
-                if (env.ApplicationName.Equals(fileVersionInfo.App,
-                                               StringComparison.OrdinalIgnoreCase))
+                if (fileVersionInfo.File != null &&
+                    string.IsNullOrEmpty(fileVersionInfo.Path) is false &&
+                    string.IsNullOrEmpty(fileVersionInfo.FileName) is false)
                 {
+                    var path = Path.Combine(env.WebRootPath,
+                                            fileVersionInfo.Path.Replace(nameof(FileVersionInfo.Publish),
+                                                                         fileVersionInfo.App,
+                                                                         StringComparison.OrdinalIgnoreCase),
+                                            fileVersionInfo.FileName);
 
-                }
-                else
-                {
-                    if (string.IsNullOrEmpty(fileVersionInfo.Path) is false &&
-                        string.IsNullOrEmpty(fileVersionInfo.FileName) is false)
+                    if (Path.GetDirectoryName(path) is string directory)
                     {
-                        if (nameof(FileVersionInfo.Publish).Equals(fileVersionInfo.Path,
-                                                                   StringComparison.OrdinalIgnoreCase))
-                        {
-                            path = Path.Combine(env.WebRootPath,
-                                                fileVersionInfo.App,
-                                                fileVersionInfo.FileName);
-                        }
-                        else
-                            path = Path.Combine(env.WebRootPath,
-                                                fileVersionInfo.App,
-                                                fileVersionInfo.Path[8..],
-                                                fileVersionInfo.FileName);
+                        DirectoryInfo di = new(directory);
 
-                        if (fileVersionInfo.File != null)
-                            await System.IO.File.WriteAllBytesAsync(path,
-                                                                    fileVersionInfo.File);
+                        if (di.Exists is false)
+                            di.Create();
                     }
-                    logger.LogInformation("Environment Name: { }\nApplication Name: { }\nContent Root Path: { }\nWeb Root Path: { }",
-                                          env.EnvironmentName,
-                                          env.ApplicationName,
-                                          env.ContentRootPath,
-                                          env.WebRootPath);
+                    await System.IO.File.WriteAllBytesAsync(path,
+                                                            fileVersionInfo.File);
+
+                    FileInfo fi = new(path);
+
+                    if (fi.Exists)
+                    {
+                        logger.LogInformation("Installed file is { }.",
+                                              fi.FullName);
+
+                        return Ok(fi.LastWriteTime);
+                    }
                 }
-                return Ok(string.IsNullOrEmpty(path) is false &&
-                          new FileInfo(path).Exists);
+                logger.LogInformation("Environment Name: { }\nApplication Name: { }\nContent Root Path: { }\nWeb Root Path: { }",
+                                      env.EnvironmentName,
+                                      env.ApplicationName,
+                                      env.ContentRootPath,
+                                      env.WebRootPath);
             }
-            logger.LogInformation("{ } { } file not saved.",
-                                  fileVersionInfo.App,
-                                  fileVersionInfo.FileName);
+            logger.LogWarning("{ } { } file not saved.",
+                              fileVersionInfo.App,
+                              fileVersionInfo.FileName);
         }
-        logger.LogWarning("in the process of saving { } { }.",
-                          fileVersionInfo.App,
-                          fileVersionInfo.FileName);
+        logger.LogError("in the process of saving { } { }.",
+                        fileVersionInfo.App,
+                        fileVersionInfo.FileName);
 
         return NoContent();
     }
