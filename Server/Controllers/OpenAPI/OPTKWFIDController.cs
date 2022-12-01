@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using ShareInvest.Identifies;
+using ShareInvest.Mappers;
 using ShareInvest.Mappers.Kiwoom;
 using ShareInvest.Models.OpenAPI.Response;
 using ShareInvest.Server.Data;
@@ -26,8 +27,10 @@ public class OPTKWFIDController : KiwoomController
                                             where today.Equals(o.Date)
                                             select o;
 
-                res = asc ? service.OrderBy(Parameter.TransformInbound(order), res) :
-                            service.OrderByDescending(Parameter.TransformInbound(order), res);
+                var ps = (service as PropertyService)!;
+
+                res = asc ? ps.OrderBy(Parameter.TransformInbound(order), res) :
+                            ps.OrderByDescending(Parameter.TransformInbound(order), res);
 
                 return Ok(res.Select(o =>
                 {
@@ -107,7 +110,7 @@ public class OPTKWFIDController : KiwoomController
         return NoContent();
     }
     public OPTKWFIDController(CoreContext context,
-                              PropertyService service,
+                              IPropertyService service,
                               StockService stock,
                               ILogger<OPTKWFIDController> logger)
     {
@@ -118,6 +121,6 @@ public class OPTKWFIDController : KiwoomController
     }
     readonly CoreContext context;
     readonly StockService stock;
-    readonly PropertyService service;
+    readonly IPropertyService service;
     readonly ILogger<OPTKWFIDController> logger;
 }

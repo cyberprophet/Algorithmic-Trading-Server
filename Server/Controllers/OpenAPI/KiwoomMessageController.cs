@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
+using ShareInvest.Mappers;
 using ShareInvest.Models.OpenAPI;
 using ShareInvest.Server.Data;
-using ShareInvest.Server.Services;
 
 namespace ShareInvest.Server.Controllers.OpenAPI;
 
@@ -29,7 +29,7 @@ public class KiwoomMessageController : KiwoomController
         return NoContent();
     }
     public KiwoomMessageController(CoreContext context,
-                                   PropertyService service,
+                                   IPropertyService service,
                                    ILogger<KiwoomMessageController> logger)
     {
         this.context = context;
@@ -37,6 +37,6 @@ public class KiwoomMessageController : KiwoomController
         this.logger = logger;
     }
     readonly CoreContext context;
-    readonly PropertyService service;
+    readonly IPropertyService service;
     readonly ILogger<KiwoomMessageController> logger;
 }

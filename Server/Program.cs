@@ -24,6 +24,7 @@ using (var app = WebApplication.CreateBuilder(args)
                o.SwaggerEndpoint("/swagger/user/swagger.json", "User");
                o.SwaggerEndpoint("/swagger/account/swagger.json", "Account");
                o.SwaggerEndpoint("/swagger/balance/swagger.json", "Balance");
+               o.SwaggerEndpoint("/swagger/file/swagger.json", "File");
 
                o.RoutePrefix = "api";
            })
