@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 using ShareInvest.Mappers;
 using ShareInvest.Models;
@@ -13,6 +14,70 @@ namespace ShareInvest.Server.Controllers;
  ProducesResponseType(StatusCodes.Status204NoContent)]
 public class FileVersionInfoController : ControllerBase
 {
+    [ApiExplorerSettings(GroupName = "file"),
+     HttpGet]
+    public async Task<IActionResult> GetAsync([FromQuery] string app,
+                                              [FromQuery] string? path,
+                                              [FromQuery] string? name)
+    {
+        if (context.FileVersions != null &&
+            env.ApplicationName.Equals(app,
+                                       StringComparison.OrdinalIgnoreCase) is false)
+        {
+            var dao = context.FileVersions.AsNoTracking()
+                                          .Where(o => app.Equals(o.App));
+
+            if (string.IsNullOrEmpty(name))
+                return Ok(dao);
+
+            Infrastructure.Local.File file = string.IsNullOrEmpty(path) ?
+
+                                             new(Path.Combine(env.WebRootPath,
+                                                              app,
+                                                              name)) :
+
+                                             new(Path.Combine(env.WebRootPath,
+                                                              app,
+                                                              path,
+                                                              name));
+            FileVersionInfo? res = null;
+
+            try
+            {
+                res = dao.Single(o => name.Equals(o.FileName));
+            }
+            catch (Exception exception)
+            {
+                res = context.FileVersions.Find(app,
+                                                string.IsNullOrEmpty(path) ?
+                                                nameof(FileVersionInfo.Publish) :
+                                                string.Concat(nameof(FileVersionInfo.Publish),
+                                                              @"\",
+                                                              path),
+                                                name);
+                if (res != null)
+                    logger.LogTrace(exception,
+                                    "occured while browsing { }.",
+                                    name);
+
+                else
+                    logger.LogError(exception,
+                                    "\napp: { }\n\tpath: { }\n\tname: { }",
+                                    app,
+                                    path,
+                                    name);
+            }
+            if (res != null)
+            {
+                logger.LogInformation("sends { } file of { }.", name, app);
+
+                res.File = await file.ReadAllBytesAsync();
+
+                return Ok(res);
+            }
+        }
+        return NoContent();
+    }
     [ApiExplorerSettings(GroupName = "file"),
      HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] FileVersionInfo fileVersionInfo)
@@ -43,24 +108,15 @@ public class FileVersionInfoController : ControllerBase
                                                                          StringComparison.OrdinalIgnoreCase),
                                             fileVersionInfo.FileName);
 
-                    if (Path.GetDirectoryName(path) is string directory)
-                    {
-                        DirectoryInfo di = new(directory);
+                    var file = await new Infrastructure.Local.File(path)
+                                                             .WriteAllBytesAsync(fileVersionInfo.File);
 
-                        if (di.Exists is false)
-                            di.Create();
-                    }
-                    await System.IO.File.WriteAllBytesAsync(path,
-                                                            fileVersionInfo.File);
-
-                    FileInfo fi = new(path);
-
-                    if (fi.Exists)
+                    if (file.Exists)
                     {
                         logger.LogInformation("Installed file is { }.",
-                                              fi.FullName);
+                                              file.FullName);
 
-                        return Ok(fi.LastWriteTime);
+                        return Ok(file.LastWriteTime);
                     }
                 }
                 logger.LogInformation("Environment Name: { }\nApplication Name: { }\nContent Root Path: { }\nWeb Root Path: { }",
