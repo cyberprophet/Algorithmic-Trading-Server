@@ -19,11 +19,11 @@ public class OPTKWFIDController : KiwoomController
     {
         if (context.OPTKWFID != null)
         {
-            var db = context.OPTKWFID.AsNoTracking();
+            var dao = context.OPTKWFID.AsNoTracking();
 
-            if (await db.MaxAsync(o => o.Date) is string today)
+            if (await dao.MaxAsync(o => o.Date) is string today)
             {
-                IEnumerable<OPTKWFID> res = from o in db
+                IEnumerable<OPTKWFID> res = from o in dao
                                             where today.Equals(o.Date)
                                             select o;
 
