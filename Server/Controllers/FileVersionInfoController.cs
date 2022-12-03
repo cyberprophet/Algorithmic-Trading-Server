@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
+using ShareInvest.Identifies;
 using ShareInvest.Mappers;
 using ShareInvest.Models;
 using ShareInvest.Server.Data;
@@ -20,6 +21,8 @@ public class FileVersionInfoController : ControllerBase
                                               [FromQuery] string? path,
                                               [FromQuery] string? name)
     {
+        app = Parameter.TransformInbound(app);
+
         if (context.FileVersions != null &&
             env.ApplicationName.Equals(app,
                                        StringComparison.OrdinalIgnoreCase) is false)
@@ -27,8 +30,12 @@ public class FileVersionInfoController : ControllerBase
             var dao = context.FileVersions.AsNoTracking()
                                           .Where(o => app.Equals(o.App));
 
+            name = Parameter.TransformInbound(name);
+
             if (string.IsNullOrEmpty(name))
                 return Ok(dao);
+
+            path = Parameter.TransformInbound(path);
 
             Infrastructure.Local.File file = string.IsNullOrEmpty(path) ?
 
