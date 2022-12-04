@@ -19,10 +19,6 @@ public partial class CoreNavMenuBase : ConsoleLogger<CoreNavMenu>
             await base.OnInitializedAsync();
         }
     }
-    protected internal string? NavMenuCssClass
-    {
-        get => CollapseNavMenu ? "collapse" : null;
-    }
     protected internal void ToggleNavMenu()
     {
         CollapseNavMenu = CollapseNavMenu is false;
