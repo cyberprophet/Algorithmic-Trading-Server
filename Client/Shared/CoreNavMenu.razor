@@ -1,0 +1,37 @@
+﻿@inherits CoreNavMenuBase
+
+<div @onclick="ToggleNavMenu">
+    <nav class="flex-row nav">
+
+        <div class="nav-item">
+            <NavLink class="nav-link"
+                     href=""
+                     Match="NavLinkMatch.All">
+
+                @nameof(Resources.INTRO)
+
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link"
+                     href="map"
+                     Match="NavLinkMatch.All">
+
+                @nameof(Map).ToUpperInvariant()
+
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link"
+                     href="api"
+                     Match="NavLinkMatch.All">
+
+                @Resources.INTRO
+
+            </NavLink>
+        </div>
+
+    </nav>
+</div>

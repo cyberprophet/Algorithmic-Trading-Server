@@ -4754,9 +4754,12 @@ textarea.form-control-lg
 
 .nav-link
 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: larger;
     display: block;
     padding: .5rem 1rem;
-    color: #0d6efd;
+    color: #696969;
     text-decoration: none;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out
 }
@@ -4771,12 +4774,13 @@ textarea.form-control-lg
 
 .nav-link:focus, .nav-link:hover
 {
-    color: #0a58ca
+    color: #ffd700;
+    font-weight: 900
 }
 
 .nav-link.disabled
 {
-    color: #6c757d;
+    color: #fffafa;
     pointer-events: none;
     cursor: default
 }
