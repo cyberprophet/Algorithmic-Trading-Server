@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ShareInvest.Server.Properties {
+namespace ShareInvest.Client.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace ShareInvest.Server.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ShareInvest.Server.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ShareInvest.Client.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,20 +61,29 @@ namespace ShareInvest.Server.Properties {
         }
         
         /// <summary>
-        ///   CoreConnection과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   toSearchLocation과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string CORE {
+        internal static string GEO {
             get {
-                return ResourceManager.GetString("CORE", resourceCulture);
+                return ResourceManager.GetString("GEO", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   swagger.json과(와) 유사한 지역화된 문자열을 찾습니다.
+        ///   initialize과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
-        internal static string SWAGGER {
+        internal static string INITIALIZATION {
             get {
-                return ResourceManager.GetString("SWAGGER", resourceCulture);
+                return ResourceManager.GetString("INITIALIZATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   API과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string INTRO {
+            get {
+                return ResourceManager.GetString("INTRO", resourceCulture);
             }
         }
     }

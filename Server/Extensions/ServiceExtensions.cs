@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Server.Kestrel.Core;
 
+using ShareInvest.Mappers;
 using ShareInvest.Server.Services;
 
 namespace ShareInvest.Server.Extensions;
@@ -8,7 +9,7 @@ public static class ServiceExtensions
 {
     public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddScoped<PropertyService>()
+        builder.Services.AddScoped<IPropertyService, PropertyService>()
                         .AddSingleton<StockService>()
                         .AddHostedService<HubService>()
                         .Configure<KestrelServerOptions>(o =>

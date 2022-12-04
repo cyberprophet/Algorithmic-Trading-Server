@@ -1,5 +1,8 @@
 using ShareInvest;
+using ShareInvest.Models;
+using ShareInvest.Models.OpenAPI.Response;
 using ShareInvest.Server.Extensions;
+using ShareInvest.Server.Extensions.Options;
 
 Status.SetDebug();
 
@@ -13,20 +16,7 @@ using (var app = WebApplication.CreateBuilder(args)
 {
     if (app.Environment.IsDevelopment())
     {
-        app.UseSwagger(o =>
-           {
-               o.SerializeAsV2 = true;
-           })
-           .UseSwaggerUI(o =>
-           {
-               o.SwaggerEndpoint("/swagger/stock/swagger.json", "Stock");
-               o.SwaggerEndpoint("/swagger/message/swagger.json", "Message");
-               o.SwaggerEndpoint("/swagger/user/swagger.json", "User");
-               o.SwaggerEndpoint("/swagger/account/swagger.json", "Account");
-               o.SwaggerEndpoint("/swagger/balance/swagger.json", "Balance");
-
-               o.RoutePrefix = "api";
-           })
+        app.UseMigrationsEndPoint()
            .UseWebAssemblyDebugging();
     }
     else
@@ -35,16 +25,46 @@ using (var app = WebApplication.CreateBuilder(args)
            .UseHsts();
     }
 #if DEBUG
-    app.UseHttpsRedirection();
-#endif
+    app.UseHttpsRedirection()
+       .UseSwagger(o =>
+        {
+            o.SerializeAsV2 = true;
+        })
+       .UseSwaggerUI(o =>
+       {
+           o.SwaggerEndpoint(Swagger.TransformOutbound("stock"),
+                             nameof(Stock));
 
+           o.SwaggerEndpoint(Swagger.TransformOutbound("message"),
+                             nameof(Message));
+
+           o.SwaggerEndpoint(Swagger.TransformOutbound("user"),
+                             nameof(User));
+
+           o.SwaggerEndpoint(Swagger.TransformOutbound("account"),
+                             nameof(AccountBook)[..^4]);
+
+           o.SwaggerEndpoint(Swagger.TransformOutbound("balance"),
+                             nameof(BalanceOPW00004)[..7]);
+
+           o.SwaggerEndpoint(Swagger.TransformOutbound("file"),
+                             nameof(File));
+
+           o.RoutePrefix = "api";
+       });
+#endif
     app.UseBlazorFrameworkFiles()
        .UseStaticFiles()
-       .UseRouting();
+       .UseRouting()
+       .UseHttpLogging();
 
     app.MapRazorPages();
     app.MapControllers();
-    app.MapFallbackToFile("index.html");
-    app.ConfigureHubs();
-    app.Run();
+    app.MapFallbackToFile("index.html",
+                          new StaticFileOptions
+                          {
+
+                          });
+    app.ConfigureHubs()
+       .Run();
 }

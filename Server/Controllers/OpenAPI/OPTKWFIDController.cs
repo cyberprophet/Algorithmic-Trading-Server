@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 
 using ShareInvest.Identifies;
+using ShareInvest.Mappers;
 using ShareInvest.Mappers.Kiwoom;
 using ShareInvest.Models.OpenAPI.Response;
 using ShareInvest.Server.Data;
@@ -18,39 +19,55 @@ public class OPTKWFIDController : KiwoomController
     {
         if (context.OPTKWFID != null)
         {
-            var db = context.OPTKWFID.AsNoTracking();
+            var dao = context.OPTKWFID.AsNoTracking();
 
-            if (await db.MaxAsync(o => o.Date) is string today)
+            if (await dao.MaxAsync(o => o.Date) is string today)
             {
-                IEnumerable<OPTKWFID> res = from o in db
+                IEnumerable<OPTKWFID> res = from o in dao
                                             where today.Equals(o.Date)
                                             select o;
 
-                res = asc ? service.OrderBy(Parameter.TransformInbound(order), res) :
-                            service.OrderByDescending(Parameter.TransformInbound(order), res);
+                var ps = (service as PropertyService)!;
+
+                res = asc ? ps.OrderBy(Parameter.TransformInbound(order), res) :
+                            ps.OrderByDescending(Parameter.TransformInbound(order), res);
 
                 return Ok(res.Select(o =>
                 {
                     var operation = MarketOperation.Get(stock.MarketOperation[0]);
 
-                    if (operation >= EnumMarketOperation.장시작 &&
+                    if (o.Code?.Length == 6 &&
                         operation < EnumMarketOperation.장마감 &&
-                        o.Code?.Length == 6 &&
                         stock.StocksConclusion.TryGetValue(o.Code, out string? data))
                     {
                         var stock = data.Split('\t');
 
-                        return new Models.Stock
+                        return stock.Length switch
                         {
-                            Code = o.Code,
-                            Name = o.Name,
-                            Current = stock[1],
-                            Rate = stock[3],
-                            CompareToPreviousDay = stock[2],
-                            CompareToPreviousSign = stock[0xC],
-                            Volume = stock[7],
-                            TransactionAmount = stock[8],
-                            State = o.State
+                            7 => new Models.Stock
+                            {
+                                Code = o.Code,
+                                Name = o.Name,
+                                Current = stock[1],
+                                Rate = stock[3],
+                                CompareToPreviousDay = stock[2],
+                                CompareToPreviousSign = stock[6],
+                                Volume = stock[5],
+                                TransactionAmount = o.TransactionAmount,
+                                State = o.State
+                            },
+                            _ => new Models.Stock
+                            {
+                                Code = o.Code,
+                                Name = o.Name,
+                                Current = stock[1],
+                                Rate = stock[3],
+                                CompareToPreviousDay = stock[2],
+                                CompareToPreviousSign = stock[0xC],
+                                Volume = stock[7],
+                                TransactionAmount = stock[8],
+                                State = o.State
+                            }
                         };
                     }
                     return new Models.Stock
@@ -93,7 +110,7 @@ public class OPTKWFIDController : KiwoomController
         return NoContent();
     }
     public OPTKWFIDController(CoreContext context,
-                              PropertyService service,
+                              IPropertyService service,
                               StockService stock,
                               ILogger<OPTKWFIDController> logger)
     {
@@ -104,6 +121,6 @@ public class OPTKWFIDController : KiwoomController
     }
     readonly CoreContext context;
     readonly StockService stock;
-    readonly PropertyService service;
+    readonly IPropertyService service;
     readonly ILogger<OPTKWFIDController> logger;
 }

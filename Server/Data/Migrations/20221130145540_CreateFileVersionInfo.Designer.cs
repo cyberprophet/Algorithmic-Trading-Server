@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ShareInvest.Server.Data;
 
@@ -10,9 +11,10 @@ using ShareInvest.Server.Data;
 namespace ShareInvest.Server.Data.Migrations
 {
     [DbContext(typeof(CoreContext))]
-    partial class CoreContextModelSnapshot : ModelSnapshot
+    [Migration("20221130145540_CreateFileVersionInfo")]
+    partial class CreateFileVersionInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,7 +93,7 @@ namespace ShareInvest.Server.Data.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("nvarchar(128)");
 
-                    b.Property<long>("Publish")
+                    b.Property<long>("Ticks")
                         .HasColumnType("bigint");
 
                     b.HasKey("App", "Path", "FileName");
@@ -140,9 +142,6 @@ namespace ShareInvest.Server.Data.Migrations
                     b.Property<string>("Id")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsAdministrator")
-                        .HasColumnType("bit");
 
                     b.Property<bool>("IsNotMock")
                         .HasColumnType("bit");

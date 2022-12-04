@@ -1,8 +1,10 @@
-﻿using System.Reflection;
+﻿using ShareInvest.Mappers;
+
+using System.Reflection;
 
 namespace ShareInvest.Server.Services;
 
-public class PropertyService
+public class PropertyService : IPropertyService
 {
     public void SetValuesOfColumn<T>(T tuple, T param) where T : class
     {

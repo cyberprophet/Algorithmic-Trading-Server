@@ -1,0 +1,13 @@
+﻿@inherits MapBase
+@page "/map"
+
+@if (Stocks?.Count >= 0)
+{
+    <div id="map"></div>
+}
+else
+{
+    <div class="display">
+        <div class="loader" />
+    </div>
+}

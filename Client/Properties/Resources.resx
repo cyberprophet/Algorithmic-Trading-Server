@@ -117,10 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CORE" xml:space="preserve">
-    <value>CoreConnection</value>
+  <data name="GEO" xml:space="preserve">
+    <value>toSearchLocation</value>
   </data>
-  <data name="SWAGGER" xml:space="preserve">
-    <value>swagger.json</value>
+  <data name="INITIALIZATION" xml:space="preserve">
+    <value>initialize</value>
+  </data>
+  <data name="INTRO" xml:space="preserve">
+    <value>API</value>
   </data>
 </root>

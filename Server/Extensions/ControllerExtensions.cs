@@ -68,6 +68,17 @@ public static class ControllerExtensions
                 TermsOfService = new Uri("http://shareinvest.net/terms"),
                 Title = "Algorithmic-Trading-Server"
             });
+            o.SwaggerDoc("file", new OpenApiInfo
+            {
+                Contact = new OpenApiContact
+                {
+                    Name = "Algorithmic-Trading",
+                    Url = new Uri("http://shareinvest.net")
+                },
+                Description = "this version that integrates all environments",
+                TermsOfService = new Uri("http://shareinvest.net/terms"),
+                Title = "Algorithmic-Trading-Server"
+            });
         })
             .AddControllersWithViews(o =>
             {
