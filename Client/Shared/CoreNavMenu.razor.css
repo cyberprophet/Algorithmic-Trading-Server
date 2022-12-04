@@ -1,0 +1,14 @@
+﻿.nav
+{
+    justify-content: center;
+    background-color: transparent;
+    position: absolute;
+    z-index: 9;
+    width: 50%;
+    margin: 0 25%
+}
+
+.nav-item
+{
+    padding: 1.25rem 2.5rem
+}
