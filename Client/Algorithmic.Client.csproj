@@ -11,7 +11,7 @@
 		<Company>ShareInvest Corp.</Company>
 		<Product>Algorithmic-Trading</Product>
 		<Copyright>Copyright ⓒ 2022, ShareInvest Corp.</Copyright>
-		<Version>0.0.0.1</Version>
+		<Version>0.0.0.2</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
