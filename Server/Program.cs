@@ -26,6 +26,7 @@ using (var app = WebApplication.CreateBuilder(args)
     }
 #if DEBUG
     app.UseHttpsRedirection()
+       .UseResponseCompression()
        .UseSwagger(o =>
         {
             o.SerializeAsV2 = true;
@@ -57,7 +58,11 @@ using (var app = WebApplication.CreateBuilder(args)
        .UseStaticFiles()
        .UseRouting()
        .UseHttpLogging();
-
+#if DEBUG
+    app.UseIdentityServer()
+       .UseAuthentication()
+       .UseAuthorization();
+#endif
     app.MapRazorPages();
     app.MapControllers();
     app.MapFallbackToFile("index.html",

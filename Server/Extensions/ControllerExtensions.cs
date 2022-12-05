@@ -9,85 +9,37 @@ public static class ControllerExtensions
 {
     public static WebApplicationBuilder ConfigureControllers(this WebApplicationBuilder builder)
     {
-        var paramTransformer = new SlugifyParameterTransformer();
+        SlugifyParameterTransformer paramTransformer = new();
 
-        builder.Services.AddSwaggerGen(o =>
+        OpenApiInfo openApiInfo = new()
         {
-            o.SwaggerDoc("stock", new OpenApiInfo
+            Contact = new OpenApiContact
             {
-                Contact = new OpenApiContact
-                {
-                    Name = "Algorithmic-Trading",
-                    Url = new Uri("http://shareinvest.net")
-                },
-                Description = "this version that integrates all environments",
-                TermsOfService = new Uri("http://shareinvest.net/terms"),
-                Title = "Algorithmic-Trading-Server"
-            });
-            o.SwaggerDoc("user", new OpenApiInfo
-            {
-                Contact = new OpenApiContact
-                {
-                    Name = "Algorithmic-Trading",
-                    Url = new Uri("http://shareinvest.net")
-                },
-                Description = "this version that integrates all environments",
-                TermsOfService = new Uri("http://shareinvest.net/terms"),
-                Title = "Algorithmic-Trading-Server"
-            });
-            o.SwaggerDoc("account", new OpenApiInfo
-            {
-                Contact = new OpenApiContact
-                {
-                    Name = "Algorithmic-Trading",
-                    Url = new Uri("http://shareinvest.net")
-                },
-                Description = "this version that integrates all environments",
-                TermsOfService = new Uri("http://shareinvest.net/terms"),
-                Title = "Algorithmic-Trading-Server"
-            });
-            o.SwaggerDoc("balance", new OpenApiInfo
-            {
-                Contact = new OpenApiContact
-                {
-                    Name = "Algorithmic-Trading",
-                    Url = new Uri("http://shareinvest.net")
-                },
-                Description = "this version that integrates all environments",
-                TermsOfService = new Uri("http://shareinvest.net/terms"),
-                Title = "Algorithmic-Trading-Server"
-            });
-            o.SwaggerDoc("message", new OpenApiInfo
-            {
-                Contact = new OpenApiContact
-                {
-                    Name = "Algorithmic-Trading",
-                    Url = new Uri("http://shareinvest.net")
-                },
-                Description = "this version that integrates all environments",
-                TermsOfService = new Uri("http://shareinvest.net/terms"),
-                Title = "Algorithmic-Trading-Server"
-            });
-            o.SwaggerDoc("file", new OpenApiInfo
-            {
-                Contact = new OpenApiContact
-                {
-                    Name = "Algorithmic-Trading",
-                    Url = new Uri("http://shareinvest.net")
-                },
-                Description = "this version that integrates all environments",
-                TermsOfService = new Uri("http://shareinvest.net/terms"),
-                Title = "Algorithmic-Trading-Server"
-            });
-        })
-            .AddControllersWithViews(o =>
-            {
-                o.Conventions.Add(new RouteTokenTransformerConvention(paramTransformer));
-            })
-            .AddJsonOptions(o =>
-            {
-                o.JsonSerializerOptions.WriteIndented = Status.IsDebugging;
-            });
+                Name = "Algorithmic-Trading",
+                Url = new Uri("http://shareinvest.net")
+            },
+            Description = "this version that integrates all environments",
+            TermsOfService = new Uri("http://shareinvest.net/terms"),
+            Title = "Algorithmic-Trading-Server"
+        };
+        builder.Services
+               .AddSwaggerGen(o =>
+               {
+                   o.SwaggerDoc("stock", openApiInfo);
+                   o.SwaggerDoc("user", openApiInfo);
+                   o.SwaggerDoc("account", openApiInfo);
+                   o.SwaggerDoc("balance", openApiInfo);
+                   o.SwaggerDoc("message", openApiInfo);
+                   o.SwaggerDoc("file", openApiInfo);
+               })
+               .AddControllersWithViews(o =>
+               {
+                   o.Conventions.Add(new RouteTokenTransformerConvention(paramTransformer));
+               })
+               .AddJsonOptions(o =>
+               {
+                   o.JsonSerializerOptions.WriteIndented = Status.IsDebugging;
+               });
         return builder;
     }
 }

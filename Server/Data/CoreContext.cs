@@ -1,17 +1,24 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Duende.IdentityServer.EntityFramework.Extensions;
+using Duende.IdentityServer.EntityFramework.Options;
+
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Options;
 
 using ShareInvest.Models;
 using ShareInvest.Models.OpenAPI;
 using ShareInvest.Models.OpenAPI.Response;
+using ShareInvest.Server.Data.Models;
 
 namespace ShareInvest.Server.Data;
 
-public class CoreContext : DbContext
+public class CoreContext : ApiAuthorizationDbContext<CoreUser>
 {
-    public CoreContext(DbContextOptions options) : base(options)
+    public CoreContext(DbContextOptions options,
+                       IOptions<OperationalStoreOptions> store) : base(options, store)
     {
-
+        this.store = store;
     }
     public DbSet<KiwoomUser>? KiwoomUsers
     {
@@ -118,15 +125,19 @@ public class CoreContext : DbContext
             });
             o.ToTable(nameof(KiwoomUser));
         });
+        builder.ConfigurePersistedGrantContext(store.Value);
         base.OnModelCreating(builder);
     }
     protected override void OnConfiguring(DbContextOptionsBuilder builder)
     {
         builder.ConfigureWarnings(o =>
-               {
-                   o.Log((RelationalEventId.ConnectionOpened, LogLevel.Information),
-                         (RelationalEventId.ConnectionClosed, LogLevel.Information));
-               })
+        {
+            o.Log((RelationalEventId.ConnectionOpened,
+                   LogLevel.Information),
+                  (RelationalEventId.ConnectionClosed,
+                   LogLevel.Information));
+        })
                .EnableDetailedErrors();
     }
+    readonly IOptions<OperationalStoreOptions> store;
 }
