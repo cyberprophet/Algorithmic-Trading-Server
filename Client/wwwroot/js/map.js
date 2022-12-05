@@ -184,7 +184,13 @@ function toSearchLocation()
             longitude = pc.longitude
             latitude = pc.latitude
         },
-            error => console.log(error.message))
+            error =>
+            {
+                latitude = 37.4015893
+                longitude = 127.1084358
+
+                console.log(error.message)
+            })
     }
     else
     {
