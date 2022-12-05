@@ -8,10 +8,11 @@ public static class SignalRExtensions
 {
     public static WebApplicationBuilder ConfigureHubs(this WebApplicationBuilder builder)
     {
-        builder.Services.AddSignalR(o =>
-        {
-            o.EnableDetailedErrors = true;
-        });
+        builder.Services
+               .AddSignalR(o =>
+               {
+                   o.EnableDetailedErrors = true;
+               });
         return builder;
     }
     public static WebApplication ConfigureHubs(this WebApplication app)
