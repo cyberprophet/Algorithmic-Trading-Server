@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 
 using ShareInvest.Mappers;
-using ShareInvest.Models;
 using ShareInvest.Models.OpenAPI;
 using ShareInvest.Server.Data;
 
@@ -17,23 +16,33 @@ public class KiwoomUserController : KiwoomController
         if (context.KiwoomUsers is not null &&
             string.IsNullOrEmpty(user.Key) is false)
         {
-            var length = 1;
-
-            do
+            for (int i = 0; i < user.Accounts?.Length; i++)
             {
-                user.AccNo = user.Accounts?[length - 1];
+                if (user.Accounts[i].Length < 0xA)
+                    continue;
 
-                var tuple = await context.KiwoomUsers.FindAsync(user.Key, user.AccNo);
+                var tuple = await context.KiwoomUsers.FindAsync(user.Key, user.Accounts[i]);
 
-                if (tuple is not null)
-
-                    service.SetValuesOfColumn(tuple, user);
-
+                if (tuple != null)
+                    service.SetValuesOfColumn(tuple,
+                                              new KiwoomUser
+                                              {
+                                                  IsAdministrator = tuple.IsAdministrator,
+                                                  AccNo = user.Accounts[i],
+                                                  Id = user.Id,
+                                                  IsNotMock = user.IsNotMock,
+                                                  Key = user.Key,
+                                                  Name = user.Name,
+                                                  NumberOfAccounts = user.NumberOfAccounts,
+                                                  Accounts = user.Accounts
+                                              });
                 else
-                    context.KiwoomUsers.Add(user);
-            }
-            while (length++ < user.Accounts?.Length);
+                {
+                    user.AccNo = user.Accounts[i];
 
+                    context.KiwoomUsers.Add(user);
+                }
+            }
             return Ok(context.SaveChanges());
         }
         LogWarning(user.Key);
@@ -75,7 +84,11 @@ public class KiwoomUserController : KiwoomController
                 foreach (var user in from o in dao
                                      where key.Equals(o.Key)
                                      select o)
+                {
+                    logger.LogInformation("{ } is administrator.", key);
+
                     return Ok(user);
+                }
             }
         }
         LogWarning(key);
