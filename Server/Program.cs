@@ -24,7 +24,6 @@ using (var app = WebApplication.CreateBuilder(args)
         app.UseExceptionHandler("/Error")
            .UseHsts();
     }
-#if DEBUG
     app.UseHttpsRedirection()
        .UseResponseCompression()
        .UseSwagger(o =>
@@ -51,18 +50,17 @@ using (var app = WebApplication.CreateBuilder(args)
            o.SwaggerEndpoint(Swagger.TransformOutbound("file"),
                              nameof(File));
 
+           o.DocumentTitle = "Algorithmic-Trading";
            o.RoutePrefix = "api";
-       });
-#endif
-    app.UseBlazorFrameworkFiles()
+       })
+       .UseBlazorFrameworkFiles()
        .UseStaticFiles()
        .UseRouting()
-       .UseHttpLogging();
-#if DEBUG
-    app.UseIdentityServer()
+       .UseHttpLogging()
+       .UseIdentityServer()
        .UseAuthentication()
        .UseAuthorization();
-#endif
+
     app.MapRazorPages();
     app.MapControllers();
     app.MapFallbackToFile("index.html",

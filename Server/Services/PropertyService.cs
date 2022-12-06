@@ -1,4 +1,6 @@
-﻿using ShareInvest.Mappers;
+﻿using Microsoft.AspNetCore.Authentication;
+
+using ShareInvest.Mappers;
 
 using System.Reflection;
 
@@ -6,6 +8,33 @@ namespace ShareInvest.Server.Services;
 
 public class PropertyService : IPropertyService
 {
+    public IEnumerable<AuthenticationToken> GetEnumerator<T>(T property) where T : class
+    {
+        if (property != null)
+            foreach (var pi in property.GetType()
+                                       .GetProperties(BindingFlags.Instance | BindingFlags.Public))
+            {
+                if (pi.GetType() == typeof(bool))
+                    continue;
+
+                if (GetType().IsConstructedGenericType)
+                {
+                    var ctor = pi.GetValue(pi);
+
+                    if (ctor != null)
+                        foreach (var token in GetEnumerator(ctor))
+                        {
+                            yield return token;
+                        }
+                    continue;
+                }
+                yield return new AuthenticationToken
+                {
+                    Name = pi.Name,
+                    Value = Convert.ToString(pi.GetValue(property)) ?? string.Empty
+                };
+            }
+    }
     public void SetValuesOfColumn<T>(T tuple, T param) where T : class
     {
         foreach (var property in tuple.GetType()
