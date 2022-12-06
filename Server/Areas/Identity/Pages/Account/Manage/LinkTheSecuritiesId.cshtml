@@ -1,0 +1,27 @@
+﻿@page
+@model LinkTheSecuritiesIdModel
+@{
+    ViewData["Title"] = "Link the Securities Id";
+    ViewData["ActivePage"] = ManageNavPages.LinkTheSecuritiesId;
+}
+<h4>@ViewData["Title"]</h4>
+
+<div class="row">
+
+    <div class="col-md-6">
+        <form method="post">
+            <label for="securities">
+                <em>Securities</em>
+                <input type="search" class="form-control" id="securities" list="securities-list" name="securities" />
+            </label>
+            <label for="securities-id">
+                <em>Id</em>
+                <input type="text" class="form-control" id="securities-id" name="id" />
+            </label>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+
+</div>

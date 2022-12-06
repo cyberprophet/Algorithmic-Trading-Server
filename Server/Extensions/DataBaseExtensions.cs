@@ -28,8 +28,10 @@ public static class DataBaseExtensions
                    o.LicenseKey = builder.Configuration["DuendeLicenseKey"];
                    o.KeyManagement.Enabled = false;
                })
-               .AddApiAuthorization<CoreUser, CoreContext>();
-
+               .AddApiAuthorization<CoreUser, CoreContext>(o =>
+               {
+                   
+               });
         return builder;
     }
 }

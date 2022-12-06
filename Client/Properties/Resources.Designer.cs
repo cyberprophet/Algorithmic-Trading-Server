@@ -61,6 +61,15 @@ namespace ShareInvest.Client.Properties {
         }
         
         /// <summary>
+        ///   LOGIN과(와) 유사한 지역화된 문자열을 찾습니다.
+        /// </summary>
+        internal static string AUTHENTICATION {
+            get {
+                return ResourceManager.GetString("AUTHENTICATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   toSearchLocation과(와) 유사한 지역화된 문자열을 찾습니다.
         /// </summary>
         internal static string GEO {

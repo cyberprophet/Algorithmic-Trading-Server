@@ -12,8 +12,10 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddHttpClient<HttpClient>(o => o.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
-builder.Services.AddApiAuthorization();
+builder.Services.AddApiAuthorization(o =>
+{
 
+});
 builder.Logging.AddDebug();
 
 if (builder.Build() is WebAssemblyHost host)

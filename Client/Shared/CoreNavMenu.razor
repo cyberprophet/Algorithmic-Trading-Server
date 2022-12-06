@@ -1,6 +1,7 @@
 ﻿@inherits CoreNavMenuBase
 
 <div @onclick="ToggleNavMenu">
+
     <nav class="flex-row nav">
 
         <div class="nav-item">
@@ -23,15 +24,36 @@
             </NavLink>
         </div>
 
-        <div class="nav-item">
-            <NavLink class="nav-link"
-                     href="api"
-                     Match="NavLinkMatch.All">
+        <CascadingAuthenticationState>
 
-                @Resources.INTRO
+            <AuthorizeView>
 
-            </NavLink>
-        </div>
+                <Authorized>
+                    <div class="nav-item">
+                        <NavLink class="nav-link"
+                                 href="api"
+                                 Match="NavLinkMatch.All">
 
+                            @Resources.INTRO
+
+                        </NavLink>
+                    </div>
+                </Authorized>
+
+                <NotAuthorized>
+                    <div class="nav-item">
+                        <NavLink class="nav-link"
+                                 href="authentication/login"
+                                 Match="NavLinkMatch.All">
+
+                            @Resources.AUTHENTICATION
+
+                        </NavLink>
+                    </div>
+                </NotAuthorized>
+
+            </AuthorizeView>
+
+        </CascadingAuthenticationState>
     </nav>
 </div>
