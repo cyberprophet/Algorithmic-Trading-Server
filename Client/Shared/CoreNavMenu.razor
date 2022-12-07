@@ -24,36 +24,32 @@
             </NavLink>
         </div>
 
-        <CascadingAuthenticationState>
+        <AuthorizeView>
 
-            <AuthorizeView>
+            <Authorized>
+                <div class="nav-item">
+                    <NavLink class="nav-link"
+                             href="api"
+                             Match="NavLinkMatch.All">
 
-                <Authorized>
-                    <div class="nav-item">
-                        <NavLink class="nav-link"
-                                 href="api"
-                                 Match="NavLinkMatch.All">
+                        @Resources.INTRO
 
-                            @Resources.INTRO
+                    </NavLink>
+                </div>
+            </Authorized>
 
-                        </NavLink>
-                    </div>
-                </Authorized>
+            <NotAuthorized>
+                <div class="nav-item">
+                    <NavLink class="nav-link"
+                             href="account/login"
+                             Match="NavLinkMatch.All">
 
-                <NotAuthorized>
-                    <div class="nav-item">
-                        <NavLink class="nav-link"
-                                 href="authentication/login"
-                                 Match="NavLinkMatch.All">
+                        @Resources.AUTHENTICATION
 
-                            @Resources.AUTHENTICATION
+                    </NavLink>
+                </div>
+            </NotAuthorized>
 
-                        </NavLink>
-                    </div>
-                </NotAuthorized>
-
-            </AuthorizeView>
-
-        </CascadingAuthenticationState>
+        </AuthorizeView>
     </nav>
 </div>

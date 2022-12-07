@@ -13,7 +13,9 @@ namespace ShareInvest.Server.Areas.Identity.Pages.Account.Manage
 {
     public partial class IndexModel : PageModel
     {
-        public IndexModel(UserManager<CoreUser> userManager, SignInManager<CoreUser> signInManager, IEmailSender emailSender)
+        public IndexModel(UserManager<CoreUser> userManager,
+                          SignInManager<CoreUser> signInManager,
+                          IEmailSender emailSender)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;

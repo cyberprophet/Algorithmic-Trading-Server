@@ -11,6 +11,7 @@ using (var app = WebApplication.CreateBuilder(args)
                                .ConfigureServices()
                                .ConfigureDataBases()
                                .ConfigureControllers()
+                               .ConfigureAuthenticates()
                                .ConfigureViews()
                                .Build())
 {

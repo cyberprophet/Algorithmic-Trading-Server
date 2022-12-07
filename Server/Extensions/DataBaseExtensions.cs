@@ -18,7 +18,7 @@ public static class DataBaseExtensions
                .AddDatabaseDeveloperPageExceptionFilter()
                .AddDefaultIdentity<CoreUser>(o =>
                {
-                   o.SignIn.RequireConfirmedAccount = false;
+                   o.SignIn.RequireConfirmedAccount = true;
                })
                .AddEntityFrameworkStores<CoreContext>();
 

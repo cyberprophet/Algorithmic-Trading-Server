@@ -1,0 +1,12 @@
+﻿@page "/account/{action}"
+@inherits AuthenticationBase
+
+<div class="display">
+
+    <div class="loader action-container">
+
+        <RemoteAuthenticatorView Action="@Action" />
+
+    </div>
+
+</div>

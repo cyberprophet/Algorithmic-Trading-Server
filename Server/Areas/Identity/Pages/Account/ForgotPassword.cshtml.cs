@@ -39,7 +39,7 @@ namespace ShareInvest.Server.Areas.Identity.Pages.Account
             {
                 var user = await userManager.FindByEmailAsync(Input.Email);
 
-                if (user == null || (await userManager.IsEmailConfirmedAsync(user)) is false)
+                if (user == null || await userManager.IsEmailConfirmedAsync(user) is false)
                     return RedirectToPage("./ForgotPasswordConfirmation");
 
                 var code = await userManager.GeneratePasswordResetTokenAsync(user);

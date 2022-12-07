@@ -48,20 +48,17 @@
             <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
                 <div>
                     <p>
-                        @if (Model.ExternalLogins is not null)
+                        @foreach (var provider in Model.ExternalLogins)
                         {
-                            @foreach (var provider in Model.ExternalLogins)
+                            @switch (provider.DisplayName)
                             {
-                                @switch (provider.DisplayName)
-                                {
-                                    case "KakaoTalk":
-                                        <button type="submit" class="btn" name="provider" value="@provider.Name"><img src="/images/login/kakao_login_medium_wide.png" /></button>
-                                        break;
+                                case "KakaoTalk":
+                                    <button type="submit" class="btn" name="provider" value="@provider.Name"><img src="/images/buttons/kakao_login_medium_wide.png" /></button>
+                                    break;
 
-                                    default:
-                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                                        break;
-                                }
+                                default:
+                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    break;
                             }
                         }
                     </p>
@@ -72,5 +69,5 @@
 </div>
 
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
 }

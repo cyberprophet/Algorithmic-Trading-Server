@@ -14,7 +14,15 @@ builder.Services.AddHttpClient<HttpClient>(o => o.BaseAddress = new Uri(builder.
 
 builder.Services.AddApiAuthorization(o =>
 {
-
+    o.AuthenticationPaths.LogInPath = "account/login";
+    o.AuthenticationPaths.LogInCallbackPath = "account/login-callback";
+    o.AuthenticationPaths.LogInFailedPath = "account/login-failed";
+    o.AuthenticationPaths.LogOutPath = "account/logout";
+    o.AuthenticationPaths.LogOutCallbackPath = "account/logout-callback";
+    o.AuthenticationPaths.LogOutFailedPath = "account/logout-failed";
+    o.AuthenticationPaths.LogOutSucceededPath = "account/logged-out";
+    o.AuthenticationPaths.ProfilePath = "account/profile";
+    o.AuthenticationPaths.RegisterPath = "account/register";
 });
 builder.Logging.AddDebug();
 
