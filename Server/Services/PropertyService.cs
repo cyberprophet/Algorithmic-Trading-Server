@@ -14,12 +14,13 @@ public class PropertyService : IPropertyService
             foreach (var pi in property.GetType()
                                        .GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
-                if (pi.GetType() == typeof(bool))
+                if (pi.PropertyType == typeof(bool))
                     continue;
 
-                if (GetType().IsConstructedGenericType)
+                if (pi.PropertyType != typeof(string) &&
+                    pi.PropertyType.IsClass)
                 {
-                    var ctor = pi.GetValue(pi);
+                    var ctor = pi.GetValue(property);
 
                     if (ctor != null)
                         foreach (var token in GetEnumerator(ctor))

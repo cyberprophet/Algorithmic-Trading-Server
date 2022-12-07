@@ -7,10 +7,12 @@ using ShareInvest.Server.Data.Models;
 
 namespace ShareInvest.Server.Areas.Identity.Pages.Account
 {
-    [Authorize, IgnoreAntiforgeryToken]
+    [Authorize,
+     IgnoreAntiforgeryToken]
     public partial class LogoutModel : PageModel
     {
-        public LogoutModel(SignInManager<CoreUser> signInManager, ILogger<LogoutModel> logger)
+        public LogoutModel(SignInManager<CoreUser> signInManager,
+                           ILogger<LogoutModel> logger)
         {
             this.signInManager = signInManager;
             this.logger = logger;
@@ -24,6 +26,7 @@ namespace ShareInvest.Server.Areas.Identity.Pages.Account
             if (signInManager.IsSignedIn(User))
             {
                 await signInManager.SignOutAsync();
+
                 logger.LogInformation("User logged out.");
             }
             return Redirect("~/");

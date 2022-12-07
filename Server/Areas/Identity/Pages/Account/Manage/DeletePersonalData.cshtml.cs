@@ -11,7 +11,9 @@ namespace ShareInvest.Server.Areas.Identity.Pages.Account.Manage
 {
     public class DeletePersonalDataModel : PageModel
     {
-        public DeletePersonalDataModel(UserManager<CoreUser> userManager, SignInManager<CoreUser> signInManager, ILogger<DeletePersonalDataModel> logger)
+        public DeletePersonalDataModel(UserManager<CoreUser> userManager,
+                                       SignInManager<CoreUser> signInManager,
+                                       ILogger<DeletePersonalDataModel> logger)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;

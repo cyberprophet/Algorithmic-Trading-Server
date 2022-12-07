@@ -1,21 +1,25 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
+﻿<CascadingAuthenticationState>
 
-    <Found Context="routeData">
+    <Router AppAssembly="@typeof(App).Assembly">
 
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(CoreLayout)" />
+        <Found Context="routeData">
 
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+            <RouteView RouteData="@routeData" DefaultLayout="@typeof(CoreLayout)" />
 
-    </Found>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
 
-    <NotFound>
+        </Found>
 
-        <PageTitle>ShareInvest</PageTitle>
+        <NotFound>
 
-        <LayoutView Layout="@typeof(CoreLayout)">
-            <iframe src="https://sharecompany.tistory.com/46" class="frame" allowfullscreen />
-        </LayoutView>
+            <PageTitle>ShareInvest</PageTitle>
 
-    </NotFound>
+            <LayoutView Layout="@typeof(CoreLayout)">
+                <iframe src="https://sharecompany.tistory.com/46" class="frame" allowfullscreen />
+            </LayoutView>
 
-</Router>
+        </NotFound>
+
+    </Router>
+
+</CascadingAuthenticationState>

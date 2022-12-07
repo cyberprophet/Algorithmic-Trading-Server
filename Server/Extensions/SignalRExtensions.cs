@@ -11,6 +11,8 @@ public static class SignalRExtensions
         builder.Services
                .AddSignalR(o =>
                {
+                   o.ClientTimeoutInterval = TimeSpan.FromSeconds(60);
+                   o.HandshakeTimeout = TimeSpan.FromSeconds(30);
                    o.EnableDetailedErrors = true;
                });
         return builder;

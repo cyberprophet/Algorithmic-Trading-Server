@@ -27,4 +27,14 @@ public partial class ConsoleLoggerBase<T> : ComponentBase
     {
         get; set;
     }
+    [Inject]
+    ILoggerProvider? LoggerProvider
+    {
+        get; set;
+    }
+    [Inject]
+    IConfiguration? Config
+    {
+        get; set;
+    }
 }

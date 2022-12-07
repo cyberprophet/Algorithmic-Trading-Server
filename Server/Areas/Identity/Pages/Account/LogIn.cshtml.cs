@@ -14,7 +14,8 @@ namespace ShareInvest.Server.Areas.Identity.Pages.Account
     [AllowAnonymous]
     public class LogInModel : PageModel
     {
-        public LogInModel(SignInManager<CoreUser> manager, ILogger<LogInModel> logger)
+        public LogInModel(SignInManager<CoreUser> manager,
+                          ILogger<LogInModel> logger)
         {
             this.manager = manager;
             this.logger = logger;
@@ -62,8 +63,11 @@ namespace ShareInvest.Server.Areas.Identity.Pages.Account
                 ModelState.AddModelError(string.Empty, ErrorMessage);
 
             returnUrl ??= Url.Content("~/");
+
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+
             ExternalLogins = (await manager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             ReturnUrl = returnUrl;
         }
         public async Task<IActionResult> OnPostAsync(string? returnUrl = null)
@@ -72,7 +76,10 @@ namespace ShareInvest.Server.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                var result = await manager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: true);
+                var result = await manager.PasswordSignInAsync(Input.Email,
+                                                               Input.Password,
+                                                               Input.RememberMe,
+                                                               lockoutOnFailure: true);
 
                 if (result.Succeeded)
                 {

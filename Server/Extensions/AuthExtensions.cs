@@ -27,15 +27,18 @@ public static class AuthExtensions
                        if (kakaoUser != null)
                            foreach (var token in new PropertyService().GetEnumerator(kakaoUser))
                            {
+                               if (tokenList.Any(o => o.Name.Equals(token.Name)))
+                                   continue;
+
                                tokenList.Add(token);
                            }
                        o.Properties.StoreTokens(tokenList);
 
                        return Task.CompletedTask;
                    };
-                   o.SaveTokens = true;
                    o.ClientId = builder.Configuration["KakaoTalk:ClientId"];
                    o.ClientSecret = builder.Configuration["KakaoTalk:ClientSecret"];
+                   o.SaveTokens = true;
                })
                .AddIdentityServerJwt();
 

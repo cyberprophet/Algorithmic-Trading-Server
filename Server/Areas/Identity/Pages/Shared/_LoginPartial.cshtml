@@ -15,10 +15,10 @@
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity?.Name</a>
+            <a class="nav-link text-dark" asp-page="/Account/Manage/Index" title="Manage">@User.Identity?.Name</a>
         </li>
         <li class="nav-item">
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/" method="post">
+            <form class="form-inline" asp-page="/Account/Logout" asp-route-returnUrl="/" method="post">
                 <button type="submit" class="nav-link btn btn-link text-dark">LogOut</button>
             </form>
         </li>
@@ -26,7 +26,7 @@
     else
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">Login</a>
+            <a class="nav-link text-dark" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">Login</a>
         </li>
     }
 </ul>
