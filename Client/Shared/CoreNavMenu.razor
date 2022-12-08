@@ -36,6 +36,16 @@
 
                     </NavLink>
                 </div>
+
+                <div class="nav-item">
+                    <NavLink class="nav-link"
+                             href="account/profile"
+                             Match="NavLinkMatch.All">
+
+                        @context.User.Identity?.Name?.ToUpperInvariant().Split('@')[0]
+
+                    </NavLink>
+                </div>
             </Authorized>
 
             <NotAuthorized>

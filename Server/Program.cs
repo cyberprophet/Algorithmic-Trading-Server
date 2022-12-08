@@ -25,7 +25,7 @@ using (var app = WebApplication.CreateBuilder(args)
         app.UseExceptionHandler("/Error")
            .UseHsts();
     }
-    app.UseHttpsRedirection()
+    app//.UseHttpsRedirection()
        .UseResponseCompression()
        .UseSwagger(o =>
         {

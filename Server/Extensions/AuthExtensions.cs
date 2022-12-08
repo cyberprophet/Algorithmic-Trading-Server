@@ -27,7 +27,8 @@ public static class AuthExtensions
                        if (kakaoUser != null)
                            foreach (var token in new PropertyService().GetEnumerator(kakaoUser))
                            {
-                               if (tokenList.Any(o => o.Name.Equals(token.Name)))
+                               if (tokenList.Any(o => o.Name.Equals(token.Name)) ||
+                                   string.IsNullOrEmpty(token.Value))
                                    continue;
 
                                tokenList.Add(token);

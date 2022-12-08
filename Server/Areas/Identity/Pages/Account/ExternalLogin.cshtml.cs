@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using ShareInvest.Server.Data.Models;
 
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 
 namespace ShareInvest.Server.Areas.Identity.Pages.Account
@@ -24,8 +25,8 @@ namespace ShareInvest.Server.Areas.Identity.Pages.Account
             this.userManager = userManager;
             this.logger = logger;
         }
-        [BindProperty]
-        public InputModel? Input
+        [AllowNull, BindProperty]
+        public InputModel Input
         {
             get; set;
         }
@@ -102,38 +103,32 @@ namespace ShareInvest.Server.Areas.Identity.Pages.Account
                                                                       isPersistent: false,
                                                                       bypassTwoFactor: true);
 
-            if (result.Succeeded &&
-               (await signInManager.UpdateExternalAuthenticationTokensAsync(info)).Succeeded)
+            if (result.Succeeded)
             {
                 var user = await userManager.FindByLoginAsync(info.LoginProvider,
                                                               info.ProviderKey);
                 var props = new AuthenticationProperties();
 
-                try
-                {
-
-                }
-                catch (Exception ex)
-                {
-                    var tokens = info.AuthenticationTokens.ToList();
-
-                    tokens.Add(new AuthenticationToken
-                    {
-                        Name = "update_exception",
-                        Value = ex.Message
-                    });
-                    info.AuthenticationProperties.StoreTokens(tokens);
-                }
                 props.StoreTokens(info.AuthenticationTokens);
+
+                props.IsPersistent = true;
 
                 await signInManager.SignInAsync(user,
                                                 props,
                                                 info.LoginProvider);
 
-                logger.LogInformation("{Name} logged in with {LoginProvider} provider.",
-                                      info.Principal.Identity?.Name,
-                                      info.LoginProvider);
+                var identityResult = await signInManager.UpdateExternalAuthenticationTokensAsync(info);
 
+                if (identityResult.Succeeded)
+                {
+                    logger.LogInformation("{ } logged in with { } provider.",
+                                          info.Principal.Identity?.Name,
+                                          info.LoginProvider);
+                }
+                else
+                {
+                    logger.LogError("{ }", identityResult.Errors);
+                }
                 return LocalRedirect(returnUrl);
             }
             if (result.IsLockedOut)
@@ -206,11 +201,22 @@ namespace ShareInvest.Server.Areas.Identity.Pages.Account
 
                         props.IsPersistent = true;
 
-                        await signInManager.SignInAsync(user, props);
+                        await signInManager.SignInAsync(user,
+                                                        props,
+                                                        info.LoginProvider);
 
-                        logger.LogInformation("User created an account using {Name} provider.",
-                                              info.LoginProvider);
+                        var identityResult = await signInManager.UpdateExternalAuthenticationTokensAsync(info);
 
+                        if (identityResult.Succeeded)
+                        {
+                            logger.LogInformation("{ } logged in with { } provider.",
+                                                  info.Principal.Identity?.Name,
+                                                  info.LoginProvider);
+                        }
+                        else
+                        {
+                            logger.LogError("{ }", identityResult.Errors);
+                        }
                         return LocalRedirect(returnUrl);
                     }
                 }
