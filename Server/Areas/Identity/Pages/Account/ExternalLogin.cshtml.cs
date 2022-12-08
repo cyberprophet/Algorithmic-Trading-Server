@@ -111,6 +111,8 @@ namespace ShareInvest.Server.Areas.Identity.Pages.Account
 
                 props.StoreTokens(info.AuthenticationTokens);
 
+                props.IsPersistent = true;
+
                 await signInManager.SignInAsync(user,
                                                 props,
                                                 info.LoginProvider);
@@ -199,11 +201,22 @@ namespace ShareInvest.Server.Areas.Identity.Pages.Account
 
                         props.IsPersistent = true;
 
-                        await signInManager.SignInAsync(user, props);
+                        await signInManager.SignInAsync(user,
+                                                        props,
+                                                        info.LoginProvider);
 
-                        logger.LogInformation("User created an account using {Name} provider.",
-                                              info.LoginProvider);
+                        var identityResult = await signInManager.UpdateExternalAuthenticationTokensAsync(info);
 
+                        if (identityResult.Succeeded)
+                        {
+                            logger.LogInformation("{ } logged in with { } provider.",
+                                                  info.Principal.Identity?.Name,
+                                                  info.LoginProvider);
+                        }
+                        else
+                        {
+                            logger.LogError("{ }", identityResult.Errors);
+                        }
                         return LocalRedirect(returnUrl);
                     }
                 }

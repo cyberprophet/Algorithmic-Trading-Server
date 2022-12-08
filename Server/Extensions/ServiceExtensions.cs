@@ -17,13 +17,13 @@ public static class ServiceExtensions
                .AddHostedService<HubService>()
                .Configure<KestrelServerOptions>(o =>
                {
-                   o.ListenAnyIP(0x2527, o =>
+                   o.ListenAnyIP(0x2527/*, o =>
                    {
                        o.UseHttps(StoreName.My,
                                   builder.Configuration["Certificate"],
                                   true)
                         .UseConnectionLogging();
-                   });
+                   }*/);
                    o.Limits.MaxRequestBodySize = null;
                });
         return builder;

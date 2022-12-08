@@ -8,7 +8,7 @@ public partial class CoreLayoutBase : LayoutComponentBase
     {
         try
         {
-            
+
         }
         catch (Exception ex)
         {
