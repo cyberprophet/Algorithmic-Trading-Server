@@ -24,32 +24,46 @@
             </NavLink>
         </div>
 
-        <AuthorizeView>
+        <CascadingAuthenticationState>
 
-            <Authorized>
-                <div class="nav-item">
-                    <NavLink class="nav-link"
-                             href="api"
-                             Match="NavLinkMatch.All">
+            <AuthorizeView>
 
-                        @Resources.INTRO
+                <Authorized>
+                    <div class="nav-item">
+                        <NavLink class="nav-link"
+                                 href="api"
+                                 Match="NavLinkMatch.All">
 
-                    </NavLink>
-                </div>
-            </Authorized>
+                            @Resources.INTRO
 
-            <NotAuthorized>
-                <div class="nav-item">
-                    <NavLink class="nav-link"
-                             href="account/login"
-                             Match="NavLinkMatch.All">
+                        </NavLink>
+                    </div>
 
-                        @Resources.AUTHENTICATION
+                    <div class="nav-item">
+                        <NavLink class="nav-link"
+                                 href="account/profile"
+                                 Match="NavLinkMatch.All">
 
-                    </NavLink>
-                </div>
-            </NotAuthorized>
+                            @context.User.Identity?.Name?.ToUpperInvariant().Split('@')[0]
 
-        </AuthorizeView>
+                        </NavLink>
+                    </div>
+                </Authorized>
+
+                <NotAuthorized>
+                    <div class="nav-item">
+                        <NavLink class="nav-link"
+                                 href="account/login"
+                                 Match="NavLinkMatch.All">
+
+                            @Resources.AUTHENTICATION
+
+                        </NavLink>
+                    </div>
+                </NotAuthorized>
+
+            </AuthorizeView>
+
+        </CascadingAuthenticationState>
     </nav>
 </div>
