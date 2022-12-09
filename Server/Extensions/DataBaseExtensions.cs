@@ -18,7 +18,11 @@ public static class DataBaseExtensions
                .AddDatabaseDeveloperPageExceptionFilter()
                .AddDefaultIdentity<CoreUser>(o =>
                {
-                   o.SignIn.RequireConfirmedAccount = true;
+                   o.Lockout.AllowedForNewUsers = false;
+                   o.Lockout.MaxFailedAccessAttempts = 0xA;
+                   o.Password.RequireUppercase = false;
+                   o.Password.RequiredLength = 0xA;
+                   o.User.RequireUniqueEmail = true;
                })
                .AddEntityFrameworkStores<CoreContext>();
 
@@ -30,7 +34,7 @@ public static class DataBaseExtensions
                })
                .AddApiAuthorization<CoreUser, CoreContext>(o =>
                {
-                   
+
                });
         return builder;
     }

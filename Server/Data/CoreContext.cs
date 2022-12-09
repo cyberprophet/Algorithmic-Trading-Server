@@ -52,8 +52,19 @@ public class CoreContext : ApiAuthorizationDbContext<CoreUser>
     {
         get; set;
     }
+    public DbSet<IntegrationAccount>? Integrations
+    {
+        get; set;
+    }
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<IntegrationAccount>(o =>
+        {
+            o.HasKey(o => o.Id);
+            o.Property(o => o.SerialNumber).IsRequired();
+            o.Property(o => o.AccountNumber).IsRequired();
+            o.ToTable(nameof(IntegrationAccount));
+        });
         builder.Entity<FileVersionInfo>(o =>
         {
             o.HasKey(o => new
