@@ -1,21 +1,39 @@
-﻿<Router AppAssembly="@typeof(App).Assembly">
+﻿<CascadingAuthenticationState>
 
-    <Found Context="routeData">
+    <Router AppAssembly="@typeof(App).Assembly">
 
-        <RouteView RouteData="@routeData" DefaultLayout="@typeof(CoreLayout)" />
+        <Found Context="routeData">
 
-        <FocusOnNavigate RouteData="@routeData" Selector="h1" />
+            <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(CoreLayout)">
 
-    </Found>
+                <NotAuthorized>
 
-    <NotFound>
+                    @if (context.User.Identity?.IsAuthenticated is false)
+                    {
+                        <RedirectToLogin />
+                    }
+                    else
+                    {
+                        <iframe src="https://sharecompany.tistory.com/46" class="frame" allowfullscreen />
+                    }
+                </NotAuthorized>
 
-        <PageTitle>ShareInvest</PageTitle>
+            </AuthorizeRouteView>
 
-        <LayoutView Layout="@typeof(CoreLayout)">
-            <iframe src="https://sharecompany.tistory.com/46" class="frame" allowfullscreen />
-        </LayoutView>
+            <FocusOnNavigate RouteData="@routeData" Selector="h1" />
 
-    </NotFound>
+        </Found>
 
-</Router>
+        <NotFound>
+
+            <PageTitle>ShareInvest</PageTitle>
+
+            <LayoutView Layout="@typeof(CoreLayout)">
+                <iframe src="https://sharecompany.tistory.com/46" class="frame" allowfullscreen />
+            </LayoutView>
+
+        </NotFound>
+
+    </Router>
+
+</CascadingAuthenticationState>

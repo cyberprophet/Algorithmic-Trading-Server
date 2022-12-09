@@ -5,18 +5,8 @@ namespace ShareInvest.Server.Controllers
 {
     public class OidcConfigurationController : Controller
     {
-        public OidcConfigurationController(IClientRequestParametersProvider clientRequestParametersProvider,
-                                           ILogger<OidcConfigurationController> logger)
-        {
-            ClientRequestParametersProvider = clientRequestParametersProvider;
-
-            this.logger = logger;
-        }
-        public IClientRequestParametersProvider ClientRequestParametersProvider
-        {
-            get;
-        }
-        [HttpGet("_configuration/{clientId}")]
+        [HttpGet("_configuration/{clientId}"),
+         ApiExplorerSettings(IgnoreApi = true)]
         public IActionResult GetClientRequestParameters([FromRoute] string clientId)
         {
             logger.LogInformation(nameof(GetClientRequestParameters),
@@ -24,6 +14,17 @@ namespace ShareInvest.Server.Controllers
 
             return Ok(ClientRequestParametersProvider.GetClientParameters(HttpContext,
                                                                           clientId));
+        }
+        public OidcConfigurationController(IClientRequestParametersProvider clientRequestParametersProvider,
+                                           ILogger<OidcConfigurationController> logger)
+        {
+            ClientRequestParametersProvider = clientRequestParametersProvider;
+
+            this.logger = logger;
+        }
+        IClientRequestParametersProvider ClientRequestParametersProvider
+        {
+            get;
         }
         readonly ILogger<OidcConfigurationController> logger;
     }

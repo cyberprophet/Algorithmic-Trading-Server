@@ -4759,8 +4759,9 @@ textarea.form-control-lg
     font-size: larger;
     display: block;
     padding: .5rem 1rem;
-    color: #696969;
+    color: snow;
     text-decoration: none;
+    text-shadow: 1.25px 1.25px #000080;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out
 }
 
@@ -4774,7 +4775,7 @@ textarea.form-control-lg
 
 .nav-link:focus, .nav-link:hover
 {
-    color: #ffd700;
+    color: wheat;
     font-weight: 900
 }
 
