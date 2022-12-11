@@ -3,6 +3,8 @@
 using Newtonsoft.Json;
 
 using ShareInvest.Models.Kakao;
+using ShareInvest.Server.Data;
+using ShareInvest.Server.Data.Models;
 using ShareInvest.Server.Services;
 
 namespace ShareInvest.Server.Extensions;
@@ -11,6 +13,16 @@ public static class AuthExtensions
 {
     public static WebApplicationBuilder ConfigureAuthenticates(this WebApplicationBuilder builder)
     {
+        builder.Services
+               .AddIdentityServer(o =>
+               {
+                   o.LicenseKey = builder.Configuration["DuendeLicenseKey"];
+                   o.KeyManagement.Enabled = false;
+               })
+               .AddApiAuthorization<CoreUser, CoreContext>(o =>
+               {
+
+               });
         builder.Services
                .AddAuthentication(o =>
                {

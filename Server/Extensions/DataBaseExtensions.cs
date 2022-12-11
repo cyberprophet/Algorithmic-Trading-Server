@@ -26,16 +26,6 @@ public static class DataBaseExtensions
                })
                .AddEntityFrameworkStores<CoreContext>();
 
-        builder.Services
-               .AddIdentityServer(o =>
-               {
-                   o.LicenseKey = builder.Configuration["DuendeLicenseKey"];
-                   o.KeyManagement.Enabled = false;
-               })
-               .AddApiAuthorization<CoreUser, CoreContext>(o =>
-               {
-
-               });
         return builder;
     }
 }
